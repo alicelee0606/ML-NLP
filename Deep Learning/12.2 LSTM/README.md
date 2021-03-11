@@ -25,29 +25,29 @@ LSTM 中引⼊了3个⻔，即输⼊⻔（input gate）、遗忘⻔（forget gat
 
 ![](https://gitee.com/kkweishe/images/raw/master/ML/2019-8-17_16-1-43.png)
 
-具体来说，假设隐藏单元个数为 h，给定时间步 t 的小批量输⼊ ![](https://latex.codecogs.com/gif.latex?X_t\in_{}\mathbb{R}^{n*d})（样本数为n，输⼊个数为d）和上⼀时间步隐藏状态 ![](https://latex.codecogs.com/gif.latex?H_{t-1}\in_{}\mathbb{R}^{n*h})。三个门的公式如下：
+具体来说，假设隐藏单元个数为 h，给定时间步 t 的小批量输⼊ $$X_t\in_{}\mathbb{R}^{n*d}$$（样本数为n，输⼊个数为d）和上⼀时间步隐藏状态 $$H_{t-1}\in_{}\mathbb{R}^{n*h}$$。三个门的公式如下：
 
-**输入门：** ![](https://latex.codecogs.com/gif.latex?I_t=\sigma(X_tW_{xi}+H_{t-1}W_{hi}+b_i))
+**输入门：** $$I_t=\sigma(X_tW_{xi}+H_{t-1}W_{hi}+b_i)$$
 
-**遗忘问：** ![](https://latex.codecogs.com/gif.latex?F_t=\sigma(X_tW_{xf}+H_{t-1}W_{hf}+b_f))
+**遗忘问：** $$F_t=\sigma(X_tW_{xf}+H_{t-1}W_{hf}+b_f)$$
 
-**输出门：** ![](https://latex.codecogs.com/gif.latex?O_t=\sigma(X_tW_{xo}+H_{t-1}W_{ho}+b_o))
+**输出门：** $$O_t=\sigma(X_tW_{xo}+H_{t-1}W_{ho}+b_o)$$
 
 ## 3. 候选记忆细胞
 
-接下来，⻓短期记忆需要计算候选记忆细胞 ![](https://latex.codecogs.com/gif.latex?\tilde{C}_t)。它的计算与上⾯介绍的3个⻔类似，但使⽤了值域在[−1, 1]的tanh函数作为激活函数，如下图所示：
+接下来，⻓短期记忆需要计算候选记忆细胞 $$\tilde{C}_t$$。它的计算与上⾯介绍的3个⻔类似，但使⽤了值域在[−1, 1]的tanh函数作为激活函数，如下图所示：
 
 ![](https://gitee.com/kkweishe/images/raw/master/ML/2019-8-17_16-24-39.png)
 
 具体来说，时间步t的候选记忆细胞计算如下：
 
-![](https://latex.codecogs.com/gif.latex?\tilde{C}_t=tanh(X_tWxc+H_{t-1}W_{hc}+b_c))
+$$\tilde{C}_t=tanh(X_tWxc+H_{t-1}W_{hc}+b_c)$$
 
 ## 4. 记忆细胞
 
-我们可以通过元素值域在[0, 1]的输⼊⻔、遗忘⻔和输出⻔来控制隐藏状态中信息的流动，这⼀般也是通过使⽤按元素乘法（符号为⊙）来实现的。当前时间步记忆细胞![](https://latex.codecogs.com/gif.latex?H_{t}\in_{}\mathbb{R}^{n*h})的计算组合了上⼀时间步记忆细胞和当前时间步候选记忆细胞的信息，并通过遗忘⻔和输⼊⻔来控制信息的流动：
+我们可以通过元素值域在[0, 1]的输⼊⻔、遗忘⻔和输出⻔来控制隐藏状态中信息的流动，这⼀般也是通过使⽤按元素乘法（符号为⊙）来实现的。当前时间步记忆细胞$$H_{t}\in_{}\mathbb{R}^{n*h}$$的计算组合了上⼀时间步记忆细胞和当前时间步候选记忆细胞的信息，并通过遗忘⻔和输⼊⻔来控制信息的流动：
 
-![](https://latex.codecogs.com/gif.latex?C_t=F_t⊙C_{t-1}+I_t⊙\tilde{C}_t)
+$$C_t=F_t.C_{t-1}+I_t.\tilde{C}_t$$
 
 如下图所⽰，遗忘⻔控制上⼀时间步的记忆细胞Ct−1中的信息是否传递到当前时间步，而输⼊⻔则控制当前时间步的输⼊Xt通过候选记忆细胞C˜t如何流⼊当前时间步的记忆细胞。如果遗忘⻔⼀直近似1且输⼊⻔⼀直近似0，过去的记忆细胞将⼀直通过时间保存并传递⾄当前时间步。这个设计可以应对循环神经⽹络中的梯度衰减问题，并更好地捕捉时间序列中时间步距离较⼤的依赖关系。
 
@@ -58,7 +58,7 @@ LSTM 中引⼊了3个⻔，即输⼊⻔（input gate）、遗忘⻔（forget gat
 有了记忆细胞以后，接下来我们还可以通过输出⻔来控制从记忆细胞到隐藏状态Ht的信
 息的流动：
 
-![](https://latex.codecogs.com/gif.latex?H_t=O_t⊙tanh(C_t))
+$$H_t=O_t.tanh(C_t)$$
 
 这⾥的tanh函数确保隐藏状态元素值在-1到1之间。需要注意的是，当输出⻔近似1时，记忆细胞信息将传递到隐藏状态供输出层使⽤；当输出⻔近似0时，记忆细胞信息只⾃⼰保留。**下图展⽰了⻓短期记忆中隐藏状态的全部计算：**
 

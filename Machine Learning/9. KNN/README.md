@@ -43,39 +43,39 @@
 
 1. **欧氏距离**，最常见的两点之间或多点之间的距离表示法，又称之为欧几里得度量，它定义于欧几里得空间中，如点 x = (x1,...,xn) 和 y = (y1,...,yn) 之间的距离为：
 
-   ![](https://latex.codecogs.com/gif.latex?d(x,y)=\sqrt{(x_1-y_1)^2+(x_2-y_2)^2+...+(x_n-y_n)^2}=\sqrt{\sum_{i=1}^{n}(x_i-y_i)^2})
+   $$d(x,y)=\sqrt{(x_1-y_1)^2+(x_2-y_2)^2+...+(x_n-y_n)^2}=\sqrt{\sum_{i=1}^{n}(x_i-y_i)^2}$$
 
    - 二维平面上两点a(x1,y1)与b(x2,y2)间的欧氏距离：
 
-     ![](https://latex.codecogs.com/gif.latex?d_{12}=\sqrt{(x_1-x_2)^2+(y_1-y_2)^2})
+     $$d_{12}=\sqrt{(x_1-x_2)^2+(y_1-y_2)^2}$$
 
    - 三维空间两点a(x1,y1,z1)与b(x2,y2,z2)间的欧氏距离：
 
-     ![](https://latex.codecogs.com/gif.latex?d_{12}=\sqrt{(x_1-x_2)^2+(y_1-y_2)^2+(z_1-z_2)^2})
+     $$d_{12}=\sqrt{(x_1-x_2)^2+(y_1-y_2)^2+(z_1-z_2)^2}$$
 
    - 两个n维向量a(x11,x12,…,x1n)与 b(x21,x22,…,x2n)间的欧氏距离：
 
-     ![](https://latex.codecogs.com/gif.latex?d_{12}=\sqrt{\sum_{k=1}^{n}(x_{1k}-x_{2k})^2})
+     $$d_{12}=\sqrt{\sum_{k=1}^{n}(x_{1k}-x_{2k})^2}$$
 
      也可以用表示成向量运算的形式：
 
-     ![](https://latex.codecogs.com/gif.latex?d_{12}=\sqrt{(a-b)(a-b)^T})
+     $$d_{12}=\sqrt{(a-b)(a-b)^T}$$
 
-2. **曼哈顿距离**，我们可以定义曼哈顿距离的正式意义为L1-距离或城市区块距离，也就是在欧几里得空间的固定直角坐标系上两点所形成的线段对轴产生的投影的距离总和。例如在平面上，坐标（x1, y1）的点P1与坐标（x2, y2）的点P2的曼哈顿距离为： ![](https://latex.codecogs.com/gif.latex?|x_1-x_2|+|y_1-y_2|)，要注意的是，曼哈顿距离依赖座标系统的转度，而非系统在座标轴上的平移或映射。 
+2. **曼哈顿距离**，我们可以定义曼哈顿距离的正式意义为L1-距离或城市区块距离，也就是在欧几里得空间的固定直角坐标系上两点所形成的线段对轴产生的投影的距离总和。例如在平面上，坐标（x1, y1）的点P1与坐标（x2, y2）的点P2的曼哈顿距离为： $$|x_1-x_2|+|y_1-y_2|$$，要注意的是，曼哈顿距离依赖座标系统的转度，而非系统在座标轴上的平移或映射。 
 
    通俗来讲，想象你在曼哈顿要从一个十字路口开车到另外一个十字路口，驾驶距离是两点间的直线距离吗？显然不是，除非你能穿越大楼。而实际驾驶距离就是这个“曼哈顿距离”，此即曼哈顿距离名称的来源， 同时，曼哈顿距离也称为城市街区距离(City Block distance)。
 
    - 二维平面两点a(x1,y1)与b(x2,y2)间的曼哈顿距离 
 
-     ![](https://latex.codecogs.com/gif.latex?d_{12}=|x_1-x_2|+|y_1-y_2|)
+     $$d_{12}=|x_1-x_2|+|y_1-y_2|$$
 
    - 两个n维向量a(x11,x12,…,x1n)与 b(x21,x22,…,x2n)间的曼哈顿距离
 
-     ![](https://latex.codecogs.com/gif.latex?d_{12}=\sum_{k=1}^{n}|x_{1k}-x_{2k}|)
+     $$d_{12}=\sum_{k=1}^{n}|x_{1k}-x_{2k}|$$
 
 3. **切比雪夫距离**，若二个向量或二个点p 、and q，其座标分别为Pi及qi，则两者之间的切比雪夫距离定义如下：
 
-   ![](https://latex.codecogs.com/gif.latex?D_{Chebyshev}(p,q)=max_i(|p_i-q_i|))
+   $$D_{Chebyshev}(p,q)=max_i(|p_i-q_i|)$$
 
    这也等于以下Lp度量的极值： ![](https://gitee.com/kkweishe/images/raw/master/ML/2019-9-24_22-19-41.png)，因此切比雪夫距离也称为L∞度量。
 
@@ -83,27 +83,27 @@
 
    在平面几何中，若二点p及q的直角坐标系坐标为(x1,y1)及(x2,y2)，则切比雪夫距离为：
 
-   ![](https://latex.codecogs.com/gif.latex?D_{Chess}=max(|x_2-x_1|,|y_2-y_1|))
+   $$D_{Chess}=max(|x_2-x_1|,|y_2-y_1|)$$
 
    **玩过国际象棋的朋友或许知道，国王走一步能够移动到相邻的8个方格中的任意一个。那么国王从格子(x1,y1)走到格子(x2,y2)最少需要多少步？。你会发现最少步数总是max( | x2-x1 | , | y2-y1 | ) 步 。有一种类似的一种距离度量方法叫切比雪夫距离。**
 
    - 二维平面两点a(x1,y1)与b(x2,y2)间的切比雪夫距离 ：
 
-     ![](https://latex.codecogs.com/gif.latex?d_{12}=max(|x_2-x_1|,|y_2-y_1|))
+     $$d_{12}=max(|x_2-x_1|,|y_2-y_1|)$$
 
    - 两个n维向量a(x11,x12,…,x1n)与 b(x21,x22,…,x2n)间的切比雪夫距离：
 
-     ![](https://latex.codecogs.com/gif.latex?d_{12}=max_i(|x_{1i}-x_{2i}|))
+     $$d_{12}=max_i(|x_{1i}-x_{2i}|)$$
 
      这个公式的另一种等价形式是
 
-     ![](https://latex.codecogs.com/gif.latex?d_{12}=lim_{k\to\infin}(\sum_{i=1}^{n}|x_{1i}-x_{2i}|^k)^{1/k})
+     $$d_{12}=lim_{k\to\infty}(\sum_{i=1}^{n}|x_{1i}-x_{2i}|^k)^{1/k}$$
 
 4. **闵可夫斯基距离**(Minkowski Distance)，闵氏距离不是一种距离，而是一组距离的定义。
 
    两个n维变量a(x11,x12,…,x1n)与 b(x21,x22,…,x2n)间的闵可夫斯基距离定义为： 
 
-   ![](https://latex.codecogs.com/gif.latex?d_{12}=\sqrt[p]{\sum_{k=1}^{n}|x_{1k}-x_{2k}|^p})
+   $$d_{12}=\sqrt[p]{\sum_{k=1}^{n}|x_{1k}-x_{2k}|^p}$$
 
    其中p是一个变参数。
    当p=1时，就是曼哈顿距离
@@ -116,22 +116,22 @@
    假设样本集X的数学期望或均值(mean)为m，标准差(standard deviation，方差开根)为s，那么X的“标准化变量”X*表示为：(X-m）/s，而且标准化变量的数学期望为0，方差为1。
    即，样本集的标准化过程(standardization)用公式描述就是：
 
-   ![](https://latex.codecogs.com/gif.latex?X^*=\frac{X-m}{s})
+   $$X^*=\frac{X-m}{s}$$
 
    标准化后的值 =  ( 标准化前的值  － 分量的均值 ) /分量的标准差　　
    经过简单的推导就可以得到两个n维向量a(x11,x12,…,x1n)与 b(x21,x22,…,x2n)间的标准化欧氏距离的公式：
 
-   ![](https://latex.codecogs.com/gif.latex?d_{12}=\sqrt{\sum_{k=1}^{n}(\frac{x_{1k}-x_{2k}}{s_k})^2})
+   $$d_{12}=\sqrt{\sum_{k=1}^{n}(\frac{x_{1k}-x_{2k}}{s_k})^2}$$
 
 6. **马氏距离**
 
    有M个样本向量X1~Xm，协方差矩阵记为S，均值记为向量μ，则其中样本向量X到u的马氏距离表示为：
 
-   ![](https://latex.codecogs.com/gif.latex?D(X)=\sqrt{(X-u)^TS^{-1}(X_i-X_j)})
+   $$D(X)=\sqrt{(X-u)^TS^{-1}(X_i-X_j)}$$
 
    - 若协方差矩阵是单位矩阵（各个样本向量之间独立同分布）,则公式就成了,也就是欧氏距离了：
 
-     ![](https://latex.codecogs.com/gif.latex?D(X_i,X_j)=\sqrt{(X_i-X_j)^T(X_i-X_j)})
+     $$D(X_i,X_j)=\sqrt{(X_i-X_j)^T(X_i-X_j)}$$
 
    - 若协方差矩阵是对角矩阵，公式变成了标准化欧氏距离。
 
@@ -143,11 +143,11 @@
 
    对于离散概率分布 p和q在同一域 X，它被定义为：
 
-   ![](https://latex.codecogs.com/gif.latex?D_B(p,q)=-ln(BC(p,q)))
+   $$D_B(p,q)=-ln(BC(p,q))$$
 
    其中：
 
-   ![](https://latex.codecogs.com/gif.latex?BC(p,q)=\sum_{x\in_{}X}\sqrt{p(x)q(x)})
+   $$BC(p,q)=\sum_{x\in_{}X}\sqrt{p(x)q(x)}$$
 
    是Bhattacharyya系数。
 
@@ -161,11 +161,11 @@
 
    - 在二维空间中向量A(x1,y1)与向量B(x2,y2)的夹角余弦公式：
 
-     ![](https://latex.codecogs.com/gif.latex?cos\theta=\frac{x_1x_2+y_1y_2}{\sqrt{x_1^2+y_1^2}\sqrt{x_2^2+y_2^2}})
+     $$cos\theta=\frac{x_1x_2+y_1y_2}{\sqrt{x_1^2+y_1^2}\sqrt{x_2^2+y_2^2}}$$
 
    - 两个n维样本点a(x11,x12,…,x1n)和b(x21,x22,…,x2n)的夹角余弦：
 
-     ![](https://latex.codecogs.com/gif.latex?cos\theta=\frac{a*b}{|a||b|})
+     $$cos\theta=\frac{a*b}{|a||b|}$$
 
    夹角余弦取值范围为[-1,1]。夹角余弦越大表示两个向量的夹角越小，夹角余弦越小表示两向量的夹角越大。当两个向量的方向重合时夹角余弦取最大值1，当两个向量的方向完全相反夹角余弦取最小值-1。 
 
@@ -173,11 +173,11 @@
 
     两个集合A和B的交集元素在A，B的并集中所占的比例，称为两个集合的杰卡德相似系数，用符号J(A,B)表示。杰卡德相似系数是衡量两个集合的相似度一种指标。
 
-    ![](https://latex.codecogs.com/gif.latex?J(A,B)=\frac{|A\cap_{}B|}{|A\cup_{}B|})
+    $$J(A,B)=\frac{|A\cap_{}B|}{|A\cup_{}B|}$$
 
     与杰卡德相似系数相反的概念是杰卡德距离：
 
-    ![](https://latex.codecogs.com/gif.latex?J_{\delta}(A,B)=1-J(A,B)=\frac{|A\cup_{}B|-|A\cap_{}B|}{|A\cup_{}B|})
+    $$J_{\delta}(A,B)=1-J(A,B)=\frac{|A\cup_{}B|-|A\cap_{}B|}{|A\cup_{}B|}$$
 
 11. **皮尔逊系数**
 

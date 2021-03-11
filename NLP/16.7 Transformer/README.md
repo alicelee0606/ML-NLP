@@ -48,9 +48,9 @@ Transformer的结构和Attention模型一样，Transformer模型中也采用了 
 
 transformer模型中缺少一种解释输入序列中单词顺序的方法，它跟序列模型还不不一样。为了处理这个问题，transformer给encoder层和decoder层的输入添加了一个额外的向量Positional Encoding，维度和embedding的维度一样，这个向量采用了一种很独特的方法来让模型学习到这个值，这个向量能决定当前词的位置，或者说在一个句子中不同的词之间的距离。这个位置向量的具体计算方法有很多种，论文中的计算方法如下：
 
-![](https://latex.codecogs.com/gif.latex?PE(pos,2i)=sin(\frac{pos}{10000^{\frac{2i}{d_{model}}}}))
+$$PE(pos,2i)=sin(\frac{pos}{10000^{\frac{2i}{d_{model}}}})$$
 
-![](https://latex.codecogs.com/gif.latex?PE(pos,2i+1)=cos(\frac{pos}{10000^{\frac{2i}{d_{model}}}}))
+$$PE(pos,2i+1)=cos(\frac{pos}{10000^{\frac{2i}{d_{model}}}})$$
 
 其中pos是指当前词在句子中的位置，i是指向量中每个值的index，可以看出，在**偶数位置，使用正弦编码，在奇数位置，使用余弦编码**。
 
@@ -120,7 +120,7 @@ BN的主要思想就是：在每一层的每一批数据上进行归一化。我
 
 它也是归一化数据的一种方式，不过**LN 是在每一个样本上计算均值和方差**，而不是BN那种在批方向计算均值和方差！公式如下：
 
-![](https://latex.codecogs.com/gif.latex?LN(x_i)=\alpha*\frac{x_i-\mu_L}{\sqrt{\sigma_L^2+\varepsilon}}+\beta)
+$$LN(x_i)=\alpha*\frac{x_i-\mu_L}{\sqrt{\sigma_L^2+\varepsilon}}+\beta$$
 
 ![](https://gitee.com/kkweishe/images/raw/master/ML/2019-9-26_9-35-22.png)
 

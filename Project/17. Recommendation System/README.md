@@ -129,9 +129,9 @@
 
    上面的方法计算物品相似度是直接使同时购买这两个物品的人数。但是也有可能存在用户购买了但不喜欢的情况 所以如果数据集包含了具体的评分数据 我们可以进一步把用户评分引入到相似度计算中 。
 
-   ![](https://latex.codecogs.com/gif.latex?w_{ij}=cos\theta=\frac{N_i*N_j}{||N_i||||N_j||}=\frac{\sum_{k=1}^{len}(n_{ki}*n_{kj})}{\sqrt{\sum_{k=1}^{len}n_{ki}^2}*\sqrt{\sum_{k=1}^{len}n_{kj}^2}})
+   $$w_{ij}=cos\theta=\frac{N_i*N_j}{||N_i||||N_j||}=\frac{\sum_{k=1}^{len}(n_{ki}*n_{kj})}{\sqrt{\sum_{k=1}^{len}n_{ki}^2}*\sqrt{\sum_{k=1}^{len}n_{kj}^2}}$$
 
-   其中 ![](https://latex.codecogs.com/gif.latex?n_{ki})是用户 k 对物品 i 的评分，如果没有评分则为 0。
+   其中 $$n_{ki}$$是用户 k 对物品 i 的评分，如果没有评分则为 0。
 
 3. **热门物品的惩罚**
 
@@ -139,7 +139,7 @@
 
    ![](https://gitee.com/kkweishe/images/raw/master/ML/2019-9-9_8-58-9.png)
 
-   当 ![](https://latex.codecogs.com/gif.latex?\alpha\in(0,0.5))时，N(i) 越小，惩罚得越厉害，从而会使热 物品相关性分数下降。
+   当 $$\alpha\in(0,0.5)$$时，N(i) 越小，惩罚得越厉害，从而会使热 物品相关性分数下降。
 
 
 
@@ -208,9 +208,9 @@
 
 LFM通过如下公式计算用户 u 对物品 i 的兴趣：
 
-![](https://latex.codecogs.com/gif.latex?preference(u,i)=r_{ui}=p_u^Tq_i=\sum_{f=1}^Fp_{u,k}q_{i,k})
+$$preference(u,i)=r_{ui}=p_u^Tq_i=\sum_{f=1}^Fp_{u,k}q_{i,k}$$
 
-这个公式中 ![](https://latex.codecogs.com/gif.latex?p_{u,k})和 ![](https://latex.codecogs.com/gif.latex?q_{i,k})是模型的参数，其中 ![](https://latex.codecogs.com/gif.latex?p_{u,k})度量了用户 u 的兴趣和第 k 个隐类的关系，而 ![](https://latex.codecogs.com/gif.latex?q_{i,k})度量了第 k 个隐类和物品 i 之间的关系。那么，下面的问题就是如何计算这两个参数。
+这个公式中 $$p_{u,k}$$和 $$q_{i,k}$$是模型的参数，其中 $$p_{u,k}$$度量了用户 u 的兴趣和第 k 个隐类的关系，而 $$q_{i,k}$$度量了第 k 个隐类和物品 i 之间的关系。那么，下面的问题就是如何计算这两个参数。
 
 对最优化理论或者机器学习有所了解的读者，可能对如何计算这两个参数都比较清楚。这两个参数是从数据集中计算出来的。要计算这两个参数，需要一个训练集，对于每个用户u，训练集里都包含了用户u喜欢的物品和不感兴趣的物品，通过学习这个数据集，就可以获得上面的模型参数。
 
@@ -242,7 +242,7 @@ LFM通过如下公式计算用户 u 对物品 i 的兴趣：
 
    Factorization Machines（FM）模型如下所示：
 
-   ![](https://latex.codecogs.com/gif.latex?\hat{y}(x)=w_0+\sum_{i=1}^nw_ix_i+\sum_{i=1}^n\sum_{j=i+1}^nx_ix_j)
+   $$\hat{y}(x)=w_0+\sum_{i=1}^nw_ix_i+\sum_{i=1}^n\sum_{j=i+1}^nx_ix_j$$
 
    具有以下几个优点
    ①前两项为一个线性模型，相当于LR模型的作用

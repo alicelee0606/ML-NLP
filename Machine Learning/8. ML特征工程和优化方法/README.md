@@ -46,17 +46,17 @@
 
 对数值类型的特征做归一化可以将所有的特征都统一到一个大致相同的数值 区间内。最常用的方法主要有以下两种。
 
-1. **线性函数归一化**（Min-Max Scaling）。它对原始数据进行线性变换，使 结果映射到[0, 1]的范围，实现对原始数据的等比缩放。归一化公式如下，其中*X*为原始数据， ![](https://latex.codecogs.com/gif.latex?X_{max}、X_{min})分别为数据最大值和最小值。 
+1. **线性函数归一化**（Min-Max Scaling）。它对原始数据进行线性变换，使 结果映射到[0, 1]的范围，实现对原始数据的等比缩放。归一化公式如下，其中*X*为原始数据， $$X_{max},X_{min}$$分别为数据最大值和最小值。 
 
-   ![](https://latex.codecogs.com/gif.latex?X_{norm}=\frac{X-X_{min}}{X_{max}-X_{min}})
+   $$X_{norm}=\frac{X-X_{min}}{X_{max}-X_{min}}$$
 
 2. **零均值归一化**（Z-Score Normalization）。它会将原始数据映射到均值为 0、标准差为1的分布上。具体来说，假设原始特征的均值为μ、标准差为σ，那么 归一化公式定义为
 
-   ![](https://latex.codecogs.com/gif.latex?z=\frac{x-u}{\sigma})
+   $$z=\frac{x-u}{\sigma}$$
 
 优点：**训练数据归一化后，容易更快地通过梯度下降找 到最优解。**
 
-![](http://wx4.sinaimg.cn/mw690/00630Defly1g5cdl44ubjj30gz08i40j.jpg)
+![image](http://wx4.sinaimg.cn/mw690/00630Defly1g5cdl44ubjj30gz08i40j.jpg)
 
 当然，数据归一化并不是万能的。在实际应用中，通过梯度下降法求解的模 型通常是需要归一化的，包括线性回归、逻辑回归、支持向量机、神经网络等模 型。但对于决策树模型则并不适用。
 
@@ -76,13 +76,13 @@
 
    二进制编码主要分为两步，先用序号编码给每个类别赋予一个类别ID，然后 将类别ID对应的二进制编码作为结果。以A、B、AB、O血型为例，下图是二进制编码的过程。A型血的ID为1，二进制表示为001；B型血的ID为2，二进制表示为 010；以此类推可以得到AB型血和O型血的二进制表示。
 
-   ![](http://wx1.sinaimg.cn/mw690/00630Defly1g5cdqz4zruj30lf07d74g.jpg)
+   ![image](http://wx1.sinaimg.cn/mw690/00630Defly1g5cdqz4zruj30lf07d74g.jpg)
 
 ### 1.3 高维组合特征的处理 
 
 为了提高复杂关系的拟合能力，在特征工程中经常会把一阶离散特征两两组 合，构成高阶组合特征。以广告点击预估问题为例，原始数据有语言和类型两种 离散特征，第一张图是语言和类型对点击的影响。为了提高拟合能力，语言和类型可 以组成二阶特征，第二张图是语言和类型的组合特征对点击的影响。
 
-![](http://wx3.sinaimg.cn/mw690/00630Defly1g5cdvbua1aj30n30kf752.jpg)
+![image](http://wx3.sinaimg.cn/mw690/00630Defly1g5cdvbua1aj30n30kf752.jpg)
 
 ### 1.4 文本表示模型 
 
@@ -107,7 +107,7 @@
 
 ### 1.6 特征工程脑图
 
-![](https://julyedu-img-public.oss-cn-beijing.aliyuncs.com/Public/Image/Question/1512980743_407.png)
+![image](https://julyedu-img-public.oss-cn-beijing.aliyuncs.com/Public/Image/Question/1512980743_407.png)
 
 ## 2. 机器学习优化方法
 
@@ -119,31 +119,31 @@
 
 1. **平方损失函数**
 
-   ![](http://wx1.sinaimg.cn/mw690/00630Defly1g5e5tzcgisj30aa01hwed.jpg)
+   $$L(Y,f(X)) = \sum_{i=1}^{n}(Y-f(X))^{2}$$
 
    Y-f(X)表示的是残差，整个式子表示的是残差的平方和，而我们的目的就是最小化这个目标函数值（注：该式子未加入正则项），也就是最小化残差的平方和。而在实际应用中，通常会使用均方差（MSE）作为一项衡量指标，公式如下：
 
-   ![](https://latex.codecogs.com/gif.latex?MSE=\frac{1}{n}\sum_{i=1}^{n}(Y_i^{'}-Y_i)^2)
+   $$MSE=\frac{1}{n}\sum_{i=1}^{n}(Y_i^{'}-Y_i)^2$$
 
    该损失函数一般使用在线性回归当中。
 
 2. **log损失函数**
 
-   ![](https://wx1.sinaimg.cn/large/00630Defly1g4pvtz3tw9j30et04v0sw.jpg)
+   ![image](https://wx1.sinaimg.cn/large/00630Defly1g4pvtz3tw9j30et04v0sw.jpg)
    
    公式中的 y=1 表示的是真实值为1时用第一个公式，真实 y=0 用第二个公式计算损失。为什么要加上log函数呢？可以试想一下，当真实样本为1是，但h=0概率，那么log0=∞，这就对模型最大的惩罚力度；当h=1时，那么log1=0，相当于没有惩罚，也就是没有损失，达到最优结果。所以数学家就想出了用log函数来表示损失函数。
    
    最后按照梯度下降法一样，求解极小值点，得到想要的模型效果。该损失函数一般使用在逻辑回归中。
    
-   ![](http://wx2.sinaimg.cn/mw690/00630Defly1g5cf7z1k1rj30b40b4wej.jpg)
+   ![image](http://wx2.sinaimg.cn/mw690/00630Defly1g5cf7z1k1rj30b40b4wej.jpg)
    
 3. **Hinge损失函数**
 
-   ![](https://latex.codecogs.com/gif.latex?L_i=\sum_{j\neq t_i}max(0,f(x_i,W)_j-(f(x_i,W)_{y_i}-\bigtriangleup)))
+   $$L_i=\sum_{j\neq t_i}max(0,f(x_i,W)_j-(f(x_i,W)_{y_i}-\bigtriangleup))$$
 
    SVM采用的就是Hinge Loss，用于“最大间隔(max-margin)”分类。
 
-   ![](http://wx1.sinaimg.cn/mw690/00630Defly1g4w5ezjr64j30se03pmy6.jpg)
+   ![image](http://wx1.sinaimg.cn/mw690/00630Defly1g4w5ezjr64j30se03pmy6.jpg)
 
    详细见之前[SVM的文章1.2.3](https://github.com/NLP-LOVE/ML-NLP/tree/master/Machine%20Learning/4.%20SVM)
 
@@ -151,11 +151,11 @@
 
 **凸函数**的严格定义为，函数L(·) 是凸函数当且仅当对定义域中的任意两点x，y和任意实数λ∈[0,1]总有：
 
-![](http://wx4.sinaimg.cn/mw690/00630Defly1g5e5wisdtuj30d401ijra.jpg)
+![image](http://wx4.sinaimg.cn/mw690/00630Defly1g5e5wisdtuj30d401ijra.jpg)
 
 该不等式的一个直观解释是，凸函数曲面上任意两点连接而成的线段，其上的任 意一点都不会处于该函数曲面的下方，如下图所示所示。
 
-![](http://wx4.sinaimg.cn/mw690/00630Defly1g5cfpms6woj30e1049wez.jpg)
+![image](http://wx4.sinaimg.cn/mw690/00630Defly1g5cfpms6woj30e1049wez.jpg)
 
 凸优化问题的例子包括支持向量机、线性回归等 线性模型，非凸优化问题的例子包括低秩模型（如矩阵分解）、深度神经网络模型等。
 
@@ -175,7 +175,7 @@
 
    梯度下降法是最早最简单，也是最为常用的最优化方法。梯度下降法实现简单，当目标函数是凸函数时，梯度下降法的解是全局解。一般情况下，其解不保证是全局最优解，梯度下降法的速度也未必是最快的。梯度下降法的优化思想是用当前位置负梯度方向作为搜索方向，因为该方向为当前位置的最快下降方向，所以也被称为是”最速下降法“。最速下降法越接近目标值，步长越小，前进越慢。梯度下降法的搜索迭代示意图如下图所示：
 
-   ![](https://images2017.cnblogs.com/blog/1022856/201709/1022856-20170916201932735-243646199.png)
+
 
    缺点：靠近极小值时收敛速度减慢；直线搜索时可能会产生一些问题；可能会“之字形”地下降。
 
@@ -187,13 +187,13 @@
 
    - 然后我们计算穿过点(x0,  f  (x0)) 并且斜率为f '(x0)的直线和 x 轴的交点的x坐标，也就是求如下方程的解：
 
-     ![](https://latex.codecogs.com/gif.latex?x*f^{'}(x_0)+f(x_0)-x_0*f^{'}(x_0)=0)
+     $$x*f^{'}(x_0)+f(x_0)-x_0*f^{'}(x_0)=0$$
 
    - 我们将新求得的点的 x 坐标命名为x1，通常x1会比x0更接近方程f  (x) = 0的解。因此我们现在可以利用x1开始下一轮迭代。
 
    由于牛顿法是基于当前位置的切线来确定下一次的位置，所以牛顿法又被很形象地称为是"切线法"。牛顿法搜索动态示例图：
 
-   ![](https://images2017.cnblogs.com/blog/1022856/201709/1022856-20170916202719078-1588446775.gif)
+   ![image](newton.png)
 
    从本质上去看，牛顿法是二阶收敛，梯度下降是一阶收敛，所以牛顿法就更快。**缺点：**
 
@@ -212,7 +212,7 @@
 
    具体的实现步骤请参加wiki百科[共轭梯度法](https://en.wikipedia.org/wiki/Conjugate_gradient_method#Example_code_in_MATLAB)。下图为共轭梯度法和梯度下降法搜索最优解的路径对比示意图：
 
-   ![](http://wx2.sinaimg.cn/mw690/00630Defly1g5ch0r2p48j308z0almy4.jpg)
+   ![image](http://wx2.sinaimg.cn/mw690/00630Defly1g5ch0r2p48j308z0almy4.jpg)
 
 ### 2.5 降维方法
 
@@ -230,7 +230,7 @@ LDA分类思想简单总结如下：
 
 假设有红、蓝两类数据，这些数据特征均为二维，如下图所示。我们的目标是将这些数据投影到一维，让每一类相近的数据的投影点尽可能接近，不同类别数据尽可能远，即图中红色和蓝色数据中心之间的距离尽可能大。
 
-![](http://wx4.sinaimg.cn/mw690/00630Defgy1g5ma79ujplj30qr0ac3z8.jpg)
+![image](http://wx4.sinaimg.cn/mw690/00630Defgy1g5ma79ujplj30qr0ac3z8.jpg)
 
 左图和右图是两种不同的投影方式。
 
@@ -263,11 +263,11 @@ LDA分类思想简单总结如下：
 
 PCA可解决训练数据中存在数据特征过多或特征累赘的问题。核心思想是将m维特征映射到n维（n < m），这n维形成主元，是重构出来最能代表原始数据的正交特征。
 
-​	假设数据集是m个n维，$(\boldsymbol x^{(1)}, \boldsymbol x^{(2)}, \cdots, \boldsymbol x^{(m)})$。如果$n=2$，需要降维到$n'=1$，现在想找到某一维度方向代表这两个维度的数据。下图有$u_1, u_2$两个向量方向，但是哪个向量才是我们所想要的，可以更好代表原始数据集的呢？
+​	假设数据集是m个n维，$$(x^{(1)}, x^{(2)}, \cdots, x^{(m)})$$。如果$$n=2$$，需要降维到$$n'=1$$，现在想找到某一维度方向代表这两个维度的数据。下图有$$u_1,u_2$$两个向量方向，但是哪个向量才是我们所想要的，可以更好代表原始数据集的呢？
 
-![](F:/jianguo_syc/GitHub/DeepLearning-500-questions-master/ch02_%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/img/ch2/2.34/1.png)
+![image](pca.png)
 
-从图可看出，$u_1$比$u_2$好，为什么呢？有以下两个主要评价指标：
+从图可看出，$$u_1$$比$$u_2$$好，为什么呢？有以下两个主要评价指标：
 
 1. 样本点到这个直线的距离足够近。
 2. 样本点在这个直线上的投影能尽可能的分开。
@@ -326,7 +326,7 @@ PCA可解决训练数据中存在数据特征过多或特征累赘的问题。�
 
 **准确率（Accuracy）。**顾名思义，就是所有的预测正确（正类负类）的占总的比重。
 
-![](https://latex.codecogs.com/gif.latex?Accuracy=\frac{TP+TN}{TP+TN+FP+FN})
+$$Accuracy=\frac{TP+TN}{TP+TN+FP+FN}$$
 
 准确率是分类问题中最简单也是最直观的评价指标，但存在明显的缺陷。比 如，当负样本占99%时，分类器把所有样本都预测为负样本也可以获得99%的准确 率。所以，当不同类别的样本比例非常不均衡时，占比大的类别往往成为影响准 确率的最主要因素。
 
@@ -334,19 +334,19 @@ PCA可解决训练数据中存在数据特征过多或特征累赘的问题。�
 
 **精确率（Precision）**，查准率。即正确预测为正的占全部预测为正的比例。个人理解：真正正确的占所有预测为正的比例。
 
-![](https://latex.codecogs.com/gif.latex?Precision=\frac{TP}{TP+FP})
+$$Precision=\frac{TP}{TP+FP}$$
 
 ### 3.3 召回率(Recall)
 
 **召回率（Recall）**，查全率。即正确预测为正的占全部实际为正的比例。个人理解：真正正确的占所有实际为正的比例。
 
-![](https://latex.codecogs.com/gif.latex?Recall=\frac{TP}{TP+FN})
+$$Recall=\frac{TP}{TP+FN}$$
 
 为了综合评估一个排序模型的好坏，不仅要看模型在不同 Top N下的Precision@N和Recall@N，而且最好绘制出模型的P-R（Precision- Recall）曲线。这里简单介绍一下P-R曲线的绘制方法。
 
 P-R曲线的横轴是召回率，纵轴是精确率。对于一个排序模型来说，其P-R曲 线上的一个点代表着，在某一阈值下，模型将大于该阈值的结果判定为正样本， 小于该阈值的结果判定为负样本，此时返回结果对应的召回率和精确率。整条P-R 曲线是通过将阈值从高到低移动而生成的。下图是P-R曲线样例图，其中实线代表 模型A的P-R曲线，虚线代表模型B的P-R曲线。原点附近代表当阈值最大时模型的 精确率和召回率。
 
-![](http://wx2.sinaimg.cn/mw690/00630Defly1g5e4ocvl8aj30ep0d275m.jpg)
+![image](http://wx2.sinaimg.cn/mw690/00630Defly1g5e4ocvl8aj30ep0d275m.jpg)
 
 由图可见，当召回率接近于0时，模型A的精确率为0.9，模型B的精确率是1， 这说明模型B得分前几位的样本全部是真正的正样本，而模型A即使得分最高的几 个样本也存在预测错误的情况。并且，随着召回率的增加，精确率整体呈下降趋 势。但是，当召回率为1时，模型A的精确率反而超过了模型B。**这充分说明，只用某个点对应的精确率和召回率是不能全面地衡量模型的性能，只有通过P-R曲线的 整体表现，才能够对模型进行更为全面的评估。**
 
@@ -354,15 +354,15 @@ P-R曲线的横轴是召回率，纵轴是精确率。对于一个排序模型�
 
 F1值（H-mean值）。F1值为算数平均数除以几何平均数，且越大越好，将Precision和Recall的上述公式带入会发现，当F1值小时，True Positive相对增加，而false相对减少，即Precision和Recall都相对增加，即F1对Precision和Recall都进行了加权。
 
-![](https://latex.codecogs.com/gif.latex?\frac{2}{F_1}=\frac{1}{Precision}+\frac{1}{Recall})
+$$\frac{2}{F_1}=\frac{1}{Precision}+\frac{1}{Recall}$$
 
-![](https://latex.codecogs.com/gif.latex?F_1=\frac{2PR}{P+R}=\frac{2TP}{2TP+FP+FN})
+$$F_1=\frac{2PR}{P+R}=\frac{2TP}{2TP+FP+FN}$$
 
 ### 3.4 ROC曲线
 
 ROC曲线。接收者操作特征曲线（receiver operating characteristic curve），是反映敏感性和特异性连续变量的综合指标，ROC曲线上每个点反映着对同一信号刺激的感受性。下图是ROC曲线例子。
 
-![](http://wx2.sinaimg.cn/mw690/00630Defly1g5e4fnjx1dj308w08waby.jpg)
+![image](http://wx2.sinaimg.cn/mw690/00630Defly1g5e4fnjx1dj308w08waby.jpg)
 
 横坐标：1-Specificity，伪正类率(False positive rate，FPR，FPR=FP/(FP+TN))，预测为正但实际为负的样本占所有负例样本的比例；
 
@@ -385,7 +385,7 @@ AUC (Area Under Curve) 被定义为ROC曲线下的面积，显然这个面积的
 
 ### 3.5 余弦距离和欧式距离
 
-**余弦距离：** ![](https://latex.codecogs.com/gif.latex?cos(A,B)=\frac{A*B}{||A||_2||B||_2})
+**余弦距离：** $$cos(A,B)=\frac{A*B}{||A||_2||B||_2}$$
 
 **欧式距离：**在数学中，欧几里得距离或欧几里得度量是欧几里得空间中两点间“普通”（即直线）距离。
 
@@ -425,7 +425,7 @@ AB测试是为Web或App界面或流程制作两个（A/B）或多个（A/B/n）�
 
 过拟合是指模型对于训练数据拟合呈过当的情况，反映到评估指标上，就是 模型在训练集上的表现很好，但在测试集和新数据上的表现较差。欠拟合指的是 模型在训练和预测时表现都不好的情况。下图形象地描述了过拟合和欠拟合的区别。
 
-![](http://wx1.sinaimg.cn/mw690/00630Defly1g5e5937nuej30hw05i3zl.jpg)
+![image](http://wx1.sinaimg.cn/mw690/00630Defly1g5e5937nuej30hw05i3zl.jpg)
 
 1. **防止过拟合：**
    - 从数据入手，获得更多的训练数据。
@@ -446,9 +446,9 @@ Kolmogorov-Smirnov检验是基于累计分布函数的，用于检验一个分�
 - 单样本K-S检验是用来检验一个数据的观测经验分布是否符合已知的理论分布。
 - 两样本K-S检验由于对两样本的经验分布函数的位置和形状参数的差异都敏感，所以成为比较两样本的最有用且最常用的非参数方法之一。
 
-检验统计量为：![](https://latex.codecogs.com/gif.latex?D_r=max_x|F_n(x)-F(x)|)
+检验统计量为：$$D_r=max_x|F_n(x)-F(x)|$$
 
-其中  ![](https://latex.codecogs.com/gif.latex?F_n(x))为观察序列值，![](https://latex.codecogs.com/gif.latex?F(x))为理论序列值或另一观察序列值。
+其中  $$F_n(x)$$为观察序列值，$$F(x)$$为理论序列值或另一观察序列值。
 
 ### 4.2 T检验
 
@@ -480,7 +480,7 @@ T检验和F检验的由来：为了确定从样本中的统计结果推论到总
 
 5. 当H0为真时，n次试验中样本落入第i个小区间Ai的频率fi/n与概率pi应该很接近。基于这种思想，皮尔逊引入检测统计量：
 
-   ![](https://latex.codecogs.com/gif.latex?x^2=\sum_{i=1}^{k}\frac{(f_i-np_i)^2}{np_i})
+   $$x^2=\sum_{i=1}^{k}\frac{(f_i-np_i)^2}{np_i}$$
 
    在H0假设成立的情况下服从自由度为k-1的卡方分布。
 

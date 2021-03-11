@@ -45,7 +45,7 @@
 
 一到这里就头疼了，因为马上要引入信息熵的公式，其实也很简单：
 
-![](https://latex.codecogs.com/gif.latex?Ent(D)=-\sum_{k=1}^{|y|}p_klog_2p_k)
+$$Ent(D)=-\sum_{k=1}^{|y|}p_klog_2p_k$$
 
 Pk表示的是：当前样本集合D中第k类样本所占的比例为Pk。
 
@@ -65,10 +65,10 @@ Pk表示的是：当前样本集合D中第k类样本所占的比例为Pk。
 
 如果不理解的，可以查看我分享的图片示例，结合我说的，包你看懂：
 
-![image](https://imgur.com/rh2TlXf)
-![image](https://imgur.com/wkRabod)
-![image](https://imgur.com/mdWMTeQ)
-![image](https://imgur.com/XNLbpBt)
+![image](dec1.png)
+![image](dec2.png)
+![image](dec3.png)
+![image](dec4.png)
 
 不过，信息增益有一个问题：对可取值数目较多的属性有所偏好，例如：考虑将“编号”作为一个属性。为了解决这个问题，引出了另一个 算法C4.5。
 
@@ -76,11 +76,11 @@ Pk表示的是：当前样本集合D中第k类样本所占的比例为Pk。
 
 为了解决信息增益的问题，引入一个信息增益率：
 
-![](https://latex.codecogs.com/gif.latex?Gain\_ratio(D,a)=\frac{Gain(D,a)}{IV(a)})
+$$Gain\_ratio(D,a)=\frac{Gain(D,a)}{IV(a)}$$
 
 其中：
 
-![](https://latex.codecogs.com/gif.latex?IV(a)=-\sum_{v=1}^{V}\frac{|D^v|}{|D|}log_2\frac{|D^v|}{|D|})
+$$IV(a)=-\sum_{v=1}^{V}\frac{|D^v|}{|D|}log_2\frac{|D^v|}{|D|}$$
 
 属性a的可能取值数目越多(即V越大)，则IV(a)的值通常就越大。**信息增益比本质： 是在信息增益的基础之上乘上一个惩罚参数。特征个数较多时，惩罚参数较小；特征个数较少时，惩罚参数较大。**不过有一个缺点：
 
@@ -110,7 +110,7 @@ Pk表示的是：当前样本集合D中第k类样本所占的比例为Pk。
 
 对于上述的每一种划分，都可以计算出基于 **划分特征= 某个特征值** 将样本集合D划分为两个子集的纯度：
 
-![](https://latex.codecogs.com/gif.latex?Gini(D,A)=\frac{|D_1|}{|D|}Gini(D_1)+\frac{|D_2|}{|D|}Gini(D_2))
+$$Gini(D,A)=\frac{|D_1|}{|D|}Gini(D_1)+\frac{|D_2|}{|D|}Gini(D_2)$$
 
 因而**对于一个具有多个取值（超过2个）的特征，需要计算以每一个取值作为划分点，对样本D划分之后子集的纯度Gini(D,Ai)，(其中Ai 表示特征A的可能取值)**
 

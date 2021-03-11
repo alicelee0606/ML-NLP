@@ -38,7 +38,7 @@
   * [16.4 textRNN & textCNN](NLP/16.4 textRNN & textCNN/README.md)
   * [16.5 序列到序列模型(seq2seq)](NLP/16.5 seq2seq/README.md)
   * [16.6 注意力机制(Attention Mechanism)](NLP/16.6 Attention/README.md)
-  * [16.7 Transformer模型]](NLP/16.7 Transformer/README.md)
+  * [16.7 Transformer模型](NLP/16.7 Transformer/README.md)
   * [16.8 BERT模型](NLP/16.8 BERT/README.md)
   * [16.9 XLNet模型](NLP/16.9 XLNet/README.md)
 

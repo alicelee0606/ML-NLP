@@ -46,8 +46,8 @@
 
 - 按特征空间分类
 
-  - **同构迁移学习（Homogeneous TL）**： 源域和目标域的特征空间相同，![](https://latex.codecogs.com/gif.latex?D_s=D_t)
-  - **异构迁移学习（Heterogeneous TL）**：源域和目标域的特征空间不同，![](https://latex.codecogs.com/gif.latex?D_s\ne_{}D_t)
+  - **同构迁移学习（Homogeneous TL）**： 源域和目标域的特征空间相同，$$D_s=D_t$$
+  - **异构迁移学习（Heterogeneous TL）**：源域和目标域的特征空间不同，$$D_s\ne_{}D_t$$
 
 - 按迁移情景分类
 

@@ -30,10 +30,10 @@ LDA可以分为以下5个步骤：
 
 在LDA模型中，一篇文档生成的方式如下：
 
-- 从狄利克雷分布 ![](https://latex.codecogs.com/gif.latex?\alpha)中取样生成文档 i 的主题分布 ![](https://latex.codecogs.com/gif.latex?\theta_i)。
-- 从主题的多项式分布![](https://latex.codecogs.com/gif.latex?\theta_i) 中取样生成文档i第 j 个词的主题![](https://latex.codecogs.com/gif.latex?z_{i,j})。
-- 从狄利克雷分布 ![](https://latex.codecogs.com/gif.latex?\beta)中取样生成主题 ![](https://latex.codecogs.com/gif.latex?z_{i,j}) 对应的词语分布![](https://latex.codecogs.com/gif.latex?\phi_{z_{i,j}})。
-- 从词语的多项式分布 ![](https://latex.codecogs.com/gif.latex?\phi_{z_{i,j}})中采样最终生成词语 ![](https://latex.codecogs.com/gif.latex?w_{i,j})。
+- 从狄利克雷分布 $$\alpha$$中取样生成文档 i 的主题分布 $$\theta_i$$。
+- 从主题的多项式分布$$\theta_i$$ 中取样生成文档i第 j 个词的主题$$z_{i,j}$$。
+- 从狄利克雷分布 $$\beta$$中取样生成主题 $$z_{i,j}$$ 对应的词语分布$$\phi_{z_{i,j}}$$。
+- 从词语的多项式分布 $$\phi_{z_{i,j}}$$中采样最终生成词语 $$w_{i,j}$$。
 
 其中，类似Beta分布是二项式分布的共轭先验概率分布，而狄利克雷分布（Dirichlet分布）是多项式分布的共轭先验概率分布。此外，LDA的图模型结构如下图所示（类似贝叶斯网络结构）：
 
@@ -45,13 +45,13 @@ LDA可以分为以下5个步骤：
 
 1. **二项分布（Binomial distribution）**
 
-   二项分布是从伯努利分布推进的。伯努利分布，又称两点分布或0-1分布，是一个离散型的随机分布，其中的随机变量只有两类取值，非正即负{+，-}。而二项分布即重复n次的伯努利试验，记为 ![](https://latex.codecogs.com/gif.latex?X\sim_{}b(n,p))。简言之，只做一次实验，是伯努利分布，重复做了n次，是二项分布。
+   二项分布是从伯努利分布推进的。伯努利分布，又称两点分布或0-1分布，是一个离散型的随机分布，其中的随机变量只有两类取值，非正即负{+，-}。而二项分布即重复n次的伯努利试验，记为 $$X\sim_{}b(n,p)$$。简言之，只做一次实验，是伯努利分布，重复做了n次，是二项分布。
 
 2. **多项分布**
 
    是二项分布扩展到多维的情况。多项分布是指单次试验中的随机变量的取值不再是0-1的，而是有多种离散值可能（1,2,3...,k）。比如投掷6个面的骰子实验，N次实验结果服从K=6的多项分布。其中：
 
-   ![](https://latex.codecogs.com/gif.latex?\sum_{i=1}^{k}p_i=1,p_i>0)
+   $$\sum_{i=1}^{k}p_i=1,p_i>0$$
 
 3. **共轭先验分布**
 
@@ -59,15 +59,15 @@ LDA可以分为以下5个步骤：
 
 4. **Beta分布**
 
-   二项分布的共轭先验分布。给定参数 ![](https://latex.codecogs.com/gif.latex?\alpha>0) 和 ![](https://latex.codecogs.com/gif.latex?\beta>0)，取值范围为[0,1]的随机变量 x 的概率密度函数：
+   二项分布的共轭先验分布。给定参数 $$\alpha>0$$ 和 $$\beta>0$$，取值范围为[0,1]的随机变量 x 的概率密度函数：
 
-   ![](https://latex.codecogs.com/gif.latex?f(x;\alpha,\beta)=\frac{1}{B(\alpha,\beta)}x^{\alpha-1}(1-x)^{\beta-1})
+   $$f(x;\alpha,\beta)=\frac{1}{B(\alpha,\beta)}x^{\alpha-1}(1-x)^{\beta-1}$$
 
    其中：
 
-   ![](https://latex.codecogs.com/gif.latex?\frac{1}{B(\alpha,\beta)}=\frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)})
+   $$\frac{1}{B(\alpha,\beta)}=\frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)}$$
 
-   ![](https://latex.codecogs.com/gif.latex?\Gamma(z)=\int_{0}^{\infty}t^{z-1}e^{-t}dt)
+   $$\Gamma(z)=\int_{0}^{\infty}t^{z-1}e^{-t}dt$$
 
    **注：这便是所谓的gamma函数，下文会具体阐述。**
 
@@ -75,7 +75,7 @@ LDA可以分为以下5个步骤：
 
    是beta分布在高维度上的推广。Dirichlet分布的的密度函数形式跟beta分布的密度函数如出一辙：
 
-   ![](https://latex.codecogs.com/gif.latex?f(x_1,x_2,...,x_k;\alpha_1,\alpha_2,...,\alpha_k)=\frac{1}{B(\alpha)}\prod_{i=1}^{k}x_i^{\alpha^i-1})
+   $$f(x_1,x_2,...,x_k;\alpha_1,\alpha_2,...,\alpha_k)=\frac{1}{B(\alpha)}\prod_{i=1}^{k}x_i^{\alpha^i-1}$$
 
    其中
 
@@ -87,42 +87,42 @@ LDA可以分为以下5个步骤：
 
 总之，**可以得到以下几点信息。**
 
-- beta分布是二项式分布的共轭先验概率分布：对于非负实数 ![](https://latex.codecogs.com/gif.latex?\alpha)和 ![](https://latex.codecogs.com/gif.latex?\beta)，我们有如下关系：
+- beta分布是二项式分布的共轭先验概率分布：对于非负实数 $$\alpha$$和 $$\beta$$，我们有如下关系：
 
-  ![](https://latex.codecogs.com/gif.latex?Beta(p|\alpha,\beta)+Count(m_1,m_2)=Beta(p|\alpha+m_1,\beta+m_2))
+  $$Beta(p|\alpha,\beta)+Count(m_1,m_2)=Beta(p|\alpha+m_1,\beta+m_2)$$
 
-  其中 ![](https://latex.codecogs.com/gif.latex?(m_1,m_2))对应的是二项分布 ![](https://latex.codecogs.com/gif.latex?B(m_1+m_2,p))的记数。针对于这种观测到的数据符合二项分布，参数的先验分布和后验分布都是Beta分布的情况，就是Beta-Binomial 共轭。”
+  其中 $$(m_1,m_2)$$对应的是二项分布 $$B(m_1+m_2,p)$$的记数。针对于这种观测到的数据符合二项分布，参数的先验分布和后验分布都是Beta分布的情况，就是Beta-Binomial 共轭。”
 
 - 狄利克雷分布（Dirichlet分布）是多项式分布的共轭先验概率分布，一般表达式如下：
 
-  ![](https://latex.codecogs.com/gif.latex?Dir(\vec{p}|\vec\alpha)+MultCount(\vec{m})=Dir(p|\vec{\alpha}+\vec{m}))
+  $$Dir(\vec{p}|\vec\alpha)+MultCount(\vec{m})=Dir(p|\vec{\alpha}+\vec{m})$$
 
   针对于这种观测到的数据符合多项分布，参数的先验分布和后验分布都是Dirichlet 分布的情况，就是 Dirichlet-Multinomial 共轭。 ”
 
 - 贝叶斯派思考问题的固定模式：
 
-  先验分布 ![](https://latex.codecogs.com/gif.latex?\pi(\theta))+ 样本信息![](https://latex.codecogs.com/gif.latex?X) = 后验分布 ![](https://latex.codecogs.com/gif.latex?\pi(\theta|x))。
+  先验分布 $$\pi(\theta)$$+ 样本信息$$X$$ = 后验分布 $$\pi(\theta|x)$$。
 
 ### 1.2 3个基础模型的理解
 
 在讲LDA模型之前，再循序渐进理解基础模型：Unigram model、mixture of unigrams model，以及跟LDA最为接近的pLSA模型。为了方便描述，首先定义一些变量：
 
-- ![](https://latex.codecogs.com/gif.latex?w)表示词，![](https://latex.codecogs.com/gif.latex?V)示所有单词的个数（固定值）。
-- ![](https://latex.codecogs.com/gif.latex?z) 表示主题，![](https://latex.codecogs.com/gif.latex?k)主题的个数（预先给定，固定值）。
-- ![](https://latex.codecogs.com/gif.latex?D=(W_1,...,W_M)) 表示语料库，其中的M是语料库中的文档数（固定值）。
-- ![](https://latex.codecogs.com/gif.latex?W=(w_1,w_2,...,w_N))表示文档，其中的N表示一个文档中的词数（随机变量）。
+- $$w$$表示词，$$V$$示所有单词的个数（固定值）。
+- $$z$$ 表示主题，$$k$$主题的个数（预先给定，固定值）。
+- $$D=(W_1,...,W_M)$$ 表示语料库，其中的M是语料库中的文档数（固定值）。
+- $$W=(w_1,w_2,...,w_N)$$表示文档，其中的N表示一个文档中的词数（随机变量）。
 
 1. **Unigram model**
 
-   对于文档 ![](https://latex.codecogs.com/gif.latex?W=(w_1,w_2,...,w_N))，用 ![](https://latex.codecogs.com/gif.latex?p(w_n))表示词 ![](https://latex.codecogs.com/gif.latex?w_n)的先验概率，生成文档w的概率为：
+   对于文档 $$W=(w_1,w_2,...,w_N)$$，用 $$p(w_n)$$表示词 $$w_n$$的先验概率，生成文档w的概率为：
 
-   ![](https://latex.codecogs.com/gif.latex?p(W)=\prod_{n=1}^{N}p(w_n))
+   $$p(W)=\prod_{n=1}^{N}p(w_n)$$
 
 2. **Mixture of unigrams model**
 
-   该模型的生成过程是：给某个文档先选择一个主题z,再根据该主题生成文档，该文档中的所有词都来自一个主题。假设主题有 ![](https://latex.codecogs.com/gif.latex?z_1,...,z_n)，生成文档w的概率为：
+   该模型的生成过程是：给某个文档先选择一个主题z,再根据该主题生成文档，该文档中的所有词都来自一个主题。假设主题有 $$z_1,...,z_n$$，生成文档w的概率为：
 
-   ![](https://latex.codecogs.com/gif.latex?p(W)=p(z_1)\prod_{n=1}^{N}p(w_n|z_1)+...+p(z_k)\prod_{n=1}^{N}p(w_n|z_k)=\sum_{z}p(z)\prod_{n=1}^{N}p(w_n|z))
+   $$p(W)=p(z_1)\prod_{n=1}^{N}p(w_n|z_1)+...+p(z_k)\prod_{n=1}^{N}p(w_n|z_k)=\sum_{z}p(z)\prod_{n=1}^{N}p(w_n|z)$$
 
 3. **PLSA模型**
 
@@ -154,15 +154,15 @@ LDA可以分为以下5个步骤：
 
    
 
-   文档d和词w是我们得到的样本，可观测得到，所以对于任意一篇文档，其 ![](https://latex.codecogs.com/gif.latex?P(w_j|d_i))是已知的。从而可以根据大量已知的文档-词项信息 ![](https://latex.codecogs.com/gif.latex?P(w_j|d_i))，训练出文档-主题 ![](https://latex.codecogs.com/gif.latex?P(z_k|d_i))和主题-词项 ![](https://latex.codecogs.com/gif.latex?P(w_j|z_k))，如下公式所示：
+   文档d和词w是我们得到的样本，可观测得到，所以对于任意一篇文档，其 $$P(w_j|d_i)$$是已知的。从而可以根据大量已知的文档-词项信息 $$P(w_j|d_i)$$，训练出文档-主题 $$P(z_k|d_i)$$和主题-词项 $$P(w_j|z_k)$$，如下公式所示：
 
-   ![](https://latex.codecogs.com/gif.latex?P(w_j|d_i)=\sum_{k=1}^{K}P(w_j|z_k)P(z_k|d_i))
+   $$P(w_j|d_i)=\sum_{k=1}^{K}P(w_j|z_k)P(z_k|d_i)$$
 
    故得到文档中每个词的生成概率为：
 
-   ![](https://latex.codecogs.com/gif.latex?P(d_i,w_j)=P(d_i)P(w_j|d_i)=P(d_i)\sum_{k=1}^{K}P(w_j|z_k)P(z_k|d_i))
+   $$P(d_i,w_j)=P(d_i)P(w_j|d_i)=P(d_i)\sum_{k=1}^{K}P(w_j|z_k)P(z_k|d_i)$$
 
-   由于 ![](https://latex.codecogs.com/gif.latex?P(d_i))可事先计算求出，而 ![](https://latex.codecogs.com/gif.latex?P(w_j|z_k)^{})和 ![](https://latex.codecogs.com/gif.latex?P(z_k|d_i))未知，所以 ![](https://latex.codecogs.com/gif.latex?\theta=(P(w_j|z_k),P(z_k|d_i)))就是我们要估计的参数（值），通俗点说，就是要最大化这个θ。
+   由于 $$P(d_i)$$可事先计算求出，而 $$P(w_j|z_k)^{}$$和 $$P(z_k|d_i)$$未知，所以 $$\theta=(P(w_j|z_k),P(z_k|d_i))$$就是我们要估计的参数（值），通俗点说，就是要最大化这个θ。
 
    用什么方法进行估计呢，常用的参数估计方法有极大似然估计MLE、最大后验证估计MAP、贝叶斯估计等等。因为该待估计的参数中含有隐变量z，所以我们可以考虑EM算法。详细的EM算法可以参考之前写过的 [EM算法](https://github.com/NLP-LOVE/ML-NLP/tree/master/Machine%20Learning/6.%20EM) 章节。
 
@@ -172,11 +172,11 @@ LDA可以分为以下5个步骤：
 
 下面，咱们对比下本文开头所述的LDA模型中一篇文档生成的方式是怎样的：
 
-- 按照先验概率 ![](https://latex.codecogs.com/gif.latex?P(d_i))选择一篇文档 ![](https://latex.codecogs.com/gif.latex?d_i)。
-- 从狄利克雷分布（即Dirichlet分布） ![](https://latex.codecogs.com/gif.latex?\alpha)中取样生成文档 ![](https://latex.codecogs.com/gif.latex?d_i)的主题分布 ![](https://latex.codecogs.com/gif.latex?\theta_i)，换言之，主题分布 ![](https://latex.codecogs.com/gif.latex?\theta_i)由超参数为 ![](https://latex.codecogs.com/gif.latex?\alpha)的Dirichlet分布生成。
-- 从主题的多项式分布 ![](https://latex.codecogs.com/gif.latex?\theta_i)中取样生成文档 ![](https://latex.codecogs.com/gif.latex?d_i)第 j 个词的主题 ![](https://latex.codecogs.com/gif.latex?z_{i,j})。
-- 从狄利克雷分布（即Dirichlet分布） ![](https://latex.codecogs.com/gif.latex?\beta)中取样生成主题 ![](https://latex.codecogs.com/gif.latex?z_{i,j})对应的词语分布 ![](https://latex.codecogs.com/gif.latex?\phi_{z_{i,j}})，换言之，词语分布 ![](https://latex.codecogs.com/gif.latex?\phi_{z_{i,j}}) 由参数为 ![](https://latex.codecogs.com/gif.latex?\beta)的Dirichlet分布生成。
-- 从词语的多项式分布 ![](https://latex.codecogs.com/gif.latex?\phi_{z_{i,j}})中采样最终生成词语 ![](https://latex.codecogs.com/gif.latex?w_{i,j})。
+- 按照先验概率 $$P(d_i)$$选择一篇文档 $$d_i$$。
+- 从狄利克雷分布（即Dirichlet分布） $$\alpha$$中取样生成文档 $$d_i$$的主题分布 $$\theta_i$$，换言之，主题分布 $$\theta_i$$由超参数为 $$\alpha$$的Dirichlet分布生成。
+- 从主题的多项式分布 $$\theta_i$$中取样生成文档 $$d_i$$第 j 个词的主题 $$z_{i,j}$$。
+- 从狄利克雷分布（即Dirichlet分布） $$\beta$$中取样生成主题 $$z_{i,j}$$对应的词语分布 $$\phi_{z_{i,j}}$$，换言之，词语分布 $$\phi_{z_{i,j}}$$ 由参数为 $$\beta$$的Dirichlet分布生成。
+- 从词语的多项式分布 $$\phi_{z_{i,j}}$$中采样最终生成词语 $$w_{i,j}$$。
 
 LDA中，选主题和选词依然都是两个随机的过程，依然可能是先从主题分布{教育：0.5，经济：0.3，交通：0.2}中抽取出主题：教育，然后再从该主题对应的词分布{大学：0.5，老师：0.3，课程：0.2}中抽取出词：大学。
 
@@ -185,7 +185,7 @@ LDA中，选主题和选词依然都是两个随机的过程，依然可能是�
 PLSA中，主题分布和词分布是唯一确定的，能明确的指出主题分布可能就是{教育：0.5，经济：0.3，交通：0.2}，词分布可能就是{大学：0.5，老师：0.3，课程：0.2}。
 但在LDA中，主题分布和词分布不再唯一确定不变，即无法确切给出。例如主题分布可能是{教育：0.5，经济：0.3，交通：0.2}，也可能是{教育：0.6，经济：0.2，交通：0.2}，到底是哪个我们不再确定（即不知道），因为它是随机的可变化的。但再怎么变化，也依然服从一定的分布，**即主题分布跟词分布由Dirichlet先验随机确定。正因为LDA是PLSA的贝叶斯版本，所以主题分布跟词分布本身由先验知识随机给定。**
 
-换言之，LDA在pLSA的基础上给这两参数 ![](https://latex.codecogs.com/gif.latex?(P(z_k|d_i)、P(w_j|z_k)))加了两个先验分布的参数（贝叶斯化）：一个主题分布的先验分布Dirichlet分布 ![](https://latex.codecogs.com/gif.latex?\alpha)，和一个词语分布的先验分布Dirichlet分布 ![](https://latex.codecogs.com/gif.latex?\beta)。
+换言之，LDA在pLSA的基础上给这两参数 $$(P(z_k|d_i),P(w_j|z_k))$$加了两个先验分布的参数（贝叶斯化）：一个主题分布的先验分布Dirichlet分布 $$\alpha$$，和一个词语分布的先验分布Dirichlet分布 $$\beta$$。
 
 综上，LDA真的只是pLSA的贝叶斯版本，文档生成后，两者都要根据文档去推断其主题分布和词语分布（即两者本质都是为了估计给定文档生成主题，给定主题生成词语的概率），只是用的参数推断方法不同，在pLSA中用极大似然估计的思想去推断两未知的固定参数，而LDA则把这两参数弄成随机变量，且加入dirichlet先验。
 

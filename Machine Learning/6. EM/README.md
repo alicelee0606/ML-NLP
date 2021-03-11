@@ -32,13 +32,13 @@
 
 假定我们要从10万个人当中抽取100个人来做身高统计，那么抽到这100个人的概率就是(概率连乘)：
 
-![](https://latex.codecogs.com/gif.latex?L(\theta)=L(x_1,...,x_n|\theta)=\prod_{i=1}^{n}p(x_i|\theta),\theta\in\ominus)
+$$L(\theta)=L(x_1,...,x_n|\theta)=\prod_{i=1}^{n}p(x_i|\theta),\theta\in\ominus$$
 
-现在要求的就是这个 ![](https://latex.codecogs.com/gif.latex?\theta)值，也就是使得 ![](https://latex.codecogs.com/gif.latex?L(\theta))的概率最大化，那么这时的参数![](https://latex.codecogs.com/gif.latex?\theta) 就是所求。
+现在要求的就是这个 $$\theta$$值，也就是使得 $$L(\theta)$$的概率最大化，那么这时的参数$$\theta$$ 就是所求。
 
 为了便于分析，我们可以定义对数似然函数，将其变成连加的形式：
 
-![](https://latex.codecogs.com/gif.latex?H(\theta)=lnL(\theta)=ln\prod_{i=1}^{n}p(x_i|\theta)=\sum_{i=1}^{n}lnp(x_i|\theta))
+$$H(\theta)=lnL(\theta)=ln\prod_{i=1}^{n}p(x_i|\theta)=\sum_{i=1}^{n}lnp(x_i|\theta)$$
 
 对于求一个函数的极值，通过我们在本科所学的微积分知识，最直接的设想是求导，然后让导数为0，那么解这个方程得到的θ就是了（当然，前提是函数L(θ)连续可微）。但，如果θ是包含多个参数的向量那怎么处理呢？当然是求L(θ)对所有参数的偏导数，也就是梯度了，从而n个未知的参数，就有n个方程，方程组的解就是似然函数的极值点了，最终得到这n个参数的值。
 

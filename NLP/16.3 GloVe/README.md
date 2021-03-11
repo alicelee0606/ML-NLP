@@ -47,9 +47,9 @@
 
 构建词向量（Word Vector）和共现矩阵（Co-ocurrence Matrix）之间的近似关系，论文的作者提出以下的公式可以近似地表达两者之间的关系：
 
-![](https://latex.codecogs.com/gif.latex?w_i^T\tilde{w_j}+b_i+\tilde{b}_j=log(X_{ij}))
+$$w_i^T\tilde{w_j}+b_i+\tilde{b}_j=log(X_{ij})$$
 
-其中，![](https://latex.codecogs.com/gif.latex?w_i^T和\tilde{w}_j)是我们最终要求解的词向量；![](https://latex.codecogs.com/gif.latex?b_i和\tilde{b}_j)分别是两个词向量的bias term。当然你对这个公式一定有非常多的疑问，比如它到底是怎么来的，为什么要使用这个公式，为什么要构造两个词向量 ![](https://latex.codecogs.com/gif.latex?w_i^T和\tilde{w}_j)？请参考文末的参考文献。
+其中，$$w_i^T and \tilde{w}_j$$是我们最终要求解的词向量；$$b_i and \tilde{b}_j$$分别是两个词向量的bias term。当然你对这个公式一定有非常多的疑问，比如它到底是怎么来的，为什么要使用这个公式，为什么要构造两个词向量 $$w_i^T and \tilde{w}_j$$？请参考文末的参考文献。
 
 
 
@@ -59,11 +59,11 @@
 
 ![](https://gitee.com/kkweishe/images/raw/master/ML/2019-8-24_10-11-53.png)
 
-这个loss function的基本形式就是最简单的mean square loss，只不过在此基础上加了一个权重函数![](https://latex.codecogs.com/gif.latex?f(X_{ij}))，那么这个函数起了什么作用，为什么要添加这个函数呢？我们知道在一个语料库中，肯定存在很多单词他们在一起出现的次数是很多的（frequent co-occurrences），那么我们希望：
+这个loss function的基本形式就是最简单的mean square loss，只不过在此基础上加了一个权重函数$$f(X_{ij})$$，那么这个函数起了什么作用，为什么要添加这个函数呢？我们知道在一个语料库中，肯定存在很多单词他们在一起出现的次数是很多的（frequent co-occurrences），那么我们希望：
 
 - 这些单词的权重要大于那些很少在一起出现的单词（rare co-occurrences），所以这个函数要是非递减函数（non-decreasing）；
 - 但我们也不希望这个权重过大（overweighted），当到达一定程度之后应该不再增加；
-- 如果两个单词没有在一起出现，也就是![](https://latex.codecogs.com/gif.latex?X_{ij}=0)，那么他们应该不参与到 loss function 的计算当中去，也就是f(x) 要满足 f(0)=0。
+- 如果两个单词没有在一起出现，也就是$$X_{ij}=0$$，那么他们应该不参与到 loss function 的计算当中去，也就是f(x) 要满足 f(0)=0。
 
 满足以上三个条件的函数有很多，论文作者采用了如下形式的分段函数：
 
@@ -81,7 +81,7 @@
 
 具体地，这篇论文里的实验是这么做的：**采用了AdaGrad的梯度下降算法，对矩阵 X 中的所有非零元素进行随机采样，学习曲率（learning rate）设为0.05，在vector size小于300的情况下迭代了50次，其他大小的vectors上迭代了100次，直至收敛。**最终学习得到的是两个vector是 $w和\tilde{w}$，因为 X 是对称的（symmetric），所以从原理上讲 $w和\tilde{w}$ 是也是对称的，他们唯一的区别是初始化的值不一样，而导致最终的值不一样。
 
-所以这两者其实是等价的，都可以当成最终的结果来使用。**但是为了提高鲁棒性，我们最终会选择两者之和**  ![](https://latex.codecogs.com/gif.latex?w+\tilde{w})**作为最终的vector（两者的初始化不同相当于加了不同的随机噪声，所以能提高鲁棒性）。**在训练了400亿个token组成的语料后，得到的实验结果如下图所示：
+所以这两者其实是等价的，都可以当成最终的结果来使用。**但是为了提高鲁棒性，我们最终会选择两者之和**  $$w+\tilde{w}$$**作为最终的vector（两者的初始化不同相当于加了不同的随机噪声，所以能提高鲁棒性）。**在训练了400亿个token组成的语料后，得到的实验结果如下图所示：
 
 ![](http://www.fanyeong.com/wp-content/uploads/2019/08/X6eVUJJ.jpg)
 

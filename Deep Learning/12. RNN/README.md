@@ -38,17 +38,17 @@
 
 ![](http://wx1.sinaimg.cn/mw690/00630Defly1g5x6xyfcadj30zs0g83zh.jpg)
 
-现在我们考虑输⼊数据存在时间相关性的情况。假设 ![](https://latex.codecogs.com/gif.latex?X_t\in_{}\mathbb{R}^{n*d})是序列中时间步t的小批量输⼊， ![](https://latex.codecogs.com/gif.latex?H_t\in_{}\mathbb{R}^{n*h})是该时间步的隐藏变量。那么根据以上结构图当前的隐藏变量的公式如下：
+现在我们考虑输⼊数据存在时间相关性的情况。假设 $$X_t\in_{}\mathbb{R}^{n*d}$$是序列中时间步t的小批量输⼊， $$H_t\in_{}\mathbb{R}^{n*h}$$是该时间步的隐藏变量。那么根据以上结构图当前的隐藏变量的公式如下：
 
-![](https://latex.codecogs.com/gif.latex?H_t=\phi(X_tW_{xh}+H_{t-1}W_{hh}+b_h))
+$$H_t=\phi(X_tW_{xh}+H_{t-1}W_{hh}+b_h)$$
 
-从以上公式我们可以看出，这⾥我们保存上⼀时间步的隐藏变量 ![](https://latex.codecogs.com/gif.latex?H_{t-1})，并引⼊⼀个新的权重参数，该参数⽤来描述在当前时间步如何使⽤上⼀时间步的隐藏变量。具体来说，**时间步 t 的隐藏变量的计算由当前时间步的输⼊和上⼀时间步的隐藏变量共同决定。** ![](https://latex.codecogs.com/gif.latex?\phi)**函数其实就是激活函数。**
+从以上公式我们可以看出，这⾥我们保存上⼀时间步的隐藏变量 $$H_{t-1}$$，并引⼊⼀个新的权重参数，该参数⽤来描述在当前时间步如何使⽤上⼀时间步的隐藏变量。具体来说，**时间步 t 的隐藏变量的计算由当前时间步的输⼊和上⼀时间步的隐藏变量共同决定。** $$\phi$$**函数其实就是激活函数。**
 
-我们在这⾥添加了 ![](https://latex.codecogs.com/gif.latex?H_{t-1}W_{hh})⼀项。由上式中相邻时间步的隐藏变量 ![](https://latex.codecogs.com/gif.latex?H_t 和H_{t-1})之间的关系可知，这⾥的隐藏变量能够捕捉截⾄当前时间步的序列的历史信息，就像是神经⽹络当前时间步的状态或记忆⼀样。因此，该隐藏变量也称为隐藏状态。**由于隐藏状态在当前时间步的定义使⽤了上⼀时间步的隐藏状态，上式的计算是循环的。使⽤循环计算的⽹络即循环神经⽹络（recurrent neural network）。**
+我们在这⾥添加了 $$H_{t-1}W_{hh}$$⼀项。由上式中相邻时间步的隐藏变量 $$H_t and H_{t-1}$$之间的关系可知，这⾥的隐藏变量能够捕捉截⾄当前时间步的序列的历史信息，就像是神经⽹络当前时间步的状态或记忆⼀样。因此，该隐藏变量也称为隐藏状态。**由于隐藏状态在当前时间步的定义使⽤了上⼀时间步的隐藏状态，上式的计算是循环的。使⽤循环计算的⽹络即循环神经⽹络（recurrent neural network）。**
 
 在时间步t，输出层的输出和多层感知机中的计算类似：
 
-![](https://latex.codecogs.com/gif.latex?O_t=H_tW_{hq}+b_q)
+$$O_t=H_tW_{hq}+b_q$$
 
 ### 1.4 双向RNN
 
@@ -58,16 +58,16 @@
 
 ![](http://wx4.sinaimg.cn/mw690/00630Defly1g5x6s399c9j30ju0drq3n.jpg)
 
-在双向循环神经⽹络的架构中，设该时间步正向隐藏状态为 ![](https://latex.codecogs.com/gif.latex?\overrightarrow{H}_t\in_{}\mathbb{R}^{n*h})(正向隐藏单元个数为h)，反向隐藏状态为 ![](https://latex.codecogs.com/gif.latex?\overleftarrow{H}_t\in_{}\mathbb{R}^{n*h})(反向隐藏单元个数为h)。我们可以分别
+在双向循环神经⽹络的架构中，设该时间步正向隐藏状态为 $$\vec{H}_t\in_{}\mathbb{R}^{n*h}$$(正向隐藏单元个数为h)，反向隐藏状态为 $$\vec{-H}_t\in_{}\mathbb{R}^{n*h}$$(反向隐藏单元个数为h)。我们可以分别
 计算正向隐藏状态和反向隐藏状态：
 
-![](https://latex.codecogs.com/gif.latex?\overrightarrow{H}_t=\phi(X_tW_{xh}^{(f)}+\overrightarrow{H}_{t-1}W_{hh}^{(f)}+b_h^{(f)}))
+$$\vec{H}_t=\phi(X_tW_{xh}^{(f)}+\vec{H}_{t-1}W_{hh}^{(f)}+b_h^{(f)})$$
 
-![](https://latex.codecogs.com/gif.latex?\overleftarrow{H}_t=\phi(X_tW_{xh}^{(b)}+\overleftarrow{H}_{t-1}W_{hh}^{(b)}+b_h^{(b)}))
+$$\vec{-H}_t=\phi(X_tW_{xh}^{(b)}+\vec{-H}_{t-1}W_{hh}^{(b)}+b_h^{(b)})$$
 
-然后我们连结两个⽅向的隐藏状态 ![](https://latex.codecogs.com/gif.latex?\overrightarrow{H}_t和\overleftarrow{H}_t)来得到隐藏状态 ![](https://latex.codecogs.com/gif.latex?H_t\in_{}\mathbb{R}^{n*2h})，并将其输⼊到输出层。输出层计算输出 ![](https://latex.codecogs.com/gif.latex?O_t\in_{}\mathbb{R}^{n*q})(输出个数为q)：
+然后我们连结两个⽅向的隐藏状态 $$\vec{H}_t and \vec{-H}_t$$来得到隐藏状态 $$H_t\in_{}\mathbb{R}^{n*2h}$$，并将其输⼊到输出层。输出层计算输出 $$O_t\in_{}\mathbb{R}^{n*q}$$(输出个数为q)：
 
-![](https://latex.codecogs.com/gif.latex?O_t=H_tW_{hq}+b_q)
+$$O_t=H_tW_{hq}+b_q$$
 
 双向循环神经⽹络在每个时间步的隐藏状态同时取决于该时间步之前和之后的⼦序列（包
 括当前时间步的输⼊）。
@@ -86,7 +86,7 @@
 
 ![](https://gitee.com/kkweishe/images/raw/master/ML/2019-8-15_14-23-38.png)
 
-在这个计算图中，通过 ![](https://latex.codecogs.com/gif.latex?y^{'(1)})可以计算对应的损失函数，于是计算出第一个时间步的损失函数，然后计算出第二个时间步的损失函数，然后是第三个时间步，一直到最后一个时间步，最后为了计算出总体损失函数，我们要把它们都加起来，通过等式计算出最后的𝐿，也就是把每个单独时间步的损失函数都加起来。然后你就可以通过导数相关的参数，用梯度下降法来更新参数。 
+在这个计算图中，通过 $$y^{'(1)}$$可以计算对应的损失函数，于是计算出第一个时间步的损失函数，然后计算出第二个时间步的损失函数，然后是第三个时间步，一直到最后一个时间步，最后为了计算出总体损失函数，我们要把它们都加起来，通过等式计算出最后的𝐿，也就是把每个单独时间步的损失函数都加起来。然后你就可以通过导数相关的参数，用梯度下降法来更新参数。 
 
 在这个反向传播的过程中，最重要的信息传递或者说最重要的递归运算就是这个从右到左的运算，这也就是为什么这个算法有一个很别致的名字，叫做**“通过（穿越）时间反向传播（backpropagation through time）”。**取这个名字的原因是对于前向传播，你需要从左到右进行计算，在这个过程中，时刻𝑡不断增加。而对于反向传播，你需要从右到左进行计算，就像时间倒流。“通过时间反向传播”，就像穿越时光，这种说法听起来就像是你需要一台时光机来实现这个算法一样。
 

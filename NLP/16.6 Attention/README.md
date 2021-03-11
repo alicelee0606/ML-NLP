@@ -49,9 +49,9 @@
 
 ⼴义上，注意⼒机制的输⼊包括查询项以及⼀⼀对应的键项和值项，其中值项是需要加权平均的⼀组项。在加权平均中，值项的权重来⾃查询项以及与该值项对应的键项的计算。
 
-让我们考虑⼀个常⻅的简单情形，即编码器和解码器的隐藏单元个数均为 h，且函数 ![](https://latex.codecogs.com/gif.latex?a(s,h)=s^Th)。假设我们希望根据解码器单个隐藏状态 st′−1 和编码器所有隐藏状态 ht, t = 1, . . . , T来计算背景向量 ct′ 。我们可以将查询项矩阵 Q 设为![](https://gitee.com/kkweishe/images/raw/master/ML/2019-8-31_18-29-41.png)，并令键项矩阵 K 和值项矩阵 V 相同且第 t ⾏均为 ![](https://latex.codecogs.com/gif.latex?h_t^T) 。此时，我们只需要通过⽮量化计算：
+让我们考虑⼀个常⻅的简单情形，即编码器和解码器的隐藏单元个数均为 h，且函数 $$a(s,h)=s^Th$$。假设我们希望根据解码器单个隐藏状态 st′−1 和编码器所有隐藏状态 ht, t = 1, . . . , T来计算背景向量 ct′ 。我们可以将查询项矩阵 Q 设为![](https://gitee.com/kkweishe/images/raw/master/ML/2019-8-31_18-29-41.png)，并令键项矩阵 K 和值项矩阵 V 相同且第 t ⾏均为 $$h_t^T$$ 。此时，我们只需要通过⽮量化计算：
 
-![](https://latex.codecogs.com/gif.latex?softmax(QK^T)V)
+$$softmax(QK^T)V$$
 
 即可算出转置后的背景向量![](https://gitee.com/kkweishe/images/raw/master/ML/2019-8-31_18-31-58.png)。当查询项矩阵 Q 的⾏数为 n 时，上式将得到 n ⾏的输出矩阵。输出矩阵与查询项矩阵在相同⾏上⼀⼀对应。
 
@@ -99,7 +99,7 @@
 
 其中，f2函数代表Encoder对输入英文单词的某种变换函数，比如如果Encoder是用的RNN模型的话，这个f2函数的结果往往是某个时刻输入xi后隐层节点的状态值；g代表Encoder根据单词的中间表示合成整个句子中间语义表示的变换函数，一般的做法中，g函数就是对构成元素加权求和，即下列公式：
 
-![](https://latex.codecogs.com/gif.latex?C_i=\sum_{j=1}^{L_x}a_{ij}h_j)
+$$C_i=\sum_{j=1}^{L_x}a_{ij}h_j$$
 
 其中，Lx代表输入句子Source的长度，aij代表在Target输出第i个单词时Source输入句子中第j个单词的注意力分配系数，而hj则是Source输入句子中第j个单词的语义编码。假设下标i就是上面例子所说的“ 汤姆” ，那么Lx就是3，h1=f(“Tom”)，h2=f(“Chase”),h3=f(“Jerry”)分别是输入句子每个单词的语义编码，对应的注意力模型权值则分别是0.6,0.2,0.2，所以g函数本质上就是个加权求和函数。
 
@@ -127,7 +127,7 @@
 
 我们可以这样来看待Attention机制（参考图9）：将Source中的构成元素想象成是由一系列的<Key,Value>数据对构成，此时给定Target中的某个元素Query，通过计算Query和各个Key的相似性或者相关性，得到每个Key对应Value的权重系数，然后对Value进行加权求和，即得到了最终的Attention数值。所以本质上Attention机制是对Source中元素的Value值进行加权求和，而Query和Key用来计算对应Value的权重系数。即可以将其本质思想改写为如下公式：
 
-![](https://latex.codecogs.com/gif.latex?Attention(Query,Source)=\sum_{i=1}^{L_x}Similarity(Query,key_i)*Value_i)
+$$Attention(Query,Source)=\sum_{i=1}^{L_x}Similarity(Query,key_i)*Value_i$$
 
 其中，Lx=||Source||代表Source的长度，公式含义即如上所述。上文所举的机器翻译的例子里，因为在计算Attention的过程中，Source中的Key和Value合二为一，指向的是同一个东西，也即输入句子中每个单词对应的语义编码，所以可能不容易看出这种能够体现本质思想的结构。
 

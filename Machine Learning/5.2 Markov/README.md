@@ -38,7 +38,7 @@
 
 假设这个模型的每个状态都只依赖于之前的状态，这个假设被称为**马尔科夫假设**，这个假设可以大大的简化这个问题。显然，这个假设可能是一个非常糟糕的假设，导致很多重要的信息都丢失了。
 
-![](https://latex.codecogs.com/gif.latex?P(X_{n+1}|X_1=x_1,X_2=x_2,...,X_n=x_n)=P(X_{n+1}=x|X_n=x_n))
+$$P(X_{n+1}|X_1=x_1,X_2=x_2,...,X_n=x_n)=P(X_{n+1}=x|X_n=x_n)$$
 
 假设天气服从**马尔可夫链**：
 
@@ -112,7 +112,7 @@
 
 第二天(T=2 时刻)要做的事情，在第一天的概率基础上乘上第二天的概率，依次类推，最终得到这三天(T=3 时刻)所要做的事情的概率值，这就是遍历算法，简单而又粗暴。但问题是用遍历算法的复杂度会随着观测序列和隐藏状态的增加而成指数级增长。
 
-复杂度为： ![](https://latex.codecogs.com/gif.latex?2TN^T)
+复杂度为： $$2TN^T$$
 
 于是就有了第二种算法
 
@@ -124,7 +124,7 @@
 
 细心的读者已经发现了，第二步中要求的概率可以在第一步的基础上进行，同样的，第三步也会依赖于第二步的计算结果。那么这样做就能够**节省很多计算环节，类似于动态规划**。
 
-这种算法的复杂度为： ![](https://latex.codecogs.com/gif.latex?N^2T)
+这种算法的复杂度为： $$N^2T$$
 
 **后向算法**
 
@@ -146,23 +146,23 @@
 
 1. 初始计算第一天下雨和第一天晴天去散步的概率值：
 
-    ![](https://latex.codecogs.com/gif.latex?\bigtriangleup_1(R))表示第一天下雨的概率
+    $$\bigtriangleup_1(R)$$表示第一天下雨的概率
 
-    ![](https://latex.codecogs.com/gif.latex?\pi_R)表示中间的状态(下雨)s概率
+    $$\pi_R$$表示中间的状态(下雨)s概率
 
-    ![](https://latex.codecogs.com/gif.latex?b_R(O_1=w))表示下雨并且散步的概率
+    $$b_R(O_1=w)$$表示下雨并且散步的概率
 
-    ![](https://latex.codecogs.com/gif.latex?a_{R-R})表示下雨天到下雨天的概率
+    $$a_{R-R}$$表示下雨天到下雨天的概率
 
-![](https://latex.codecogs.com/gif.latex?\bigtriangleup_1(R)=\pi_R*b_R(O_1=w)=0.6*0.1=0.06)
+$$\bigtriangleup_1(R)=\pi_R*b_R(O_1=w)=0.6*0.1=0.06$$
 
-![](https://latex.codecogs.com/gif.latex?\bigtriangleup_1(S)=\pi_S*b_S(O_1=w)=0.4*0.6=0.24)
+$$\bigtriangleup_1(S)=\pi_S*b_S(O_1=w)=0.4*0.6=0.24$$
 
    初始路径为：
 
-​    ![](https://latex.codecogs.com/gif.latex?\phi_1(R)=Rainy)
+​    $$\phi_1(R)=Rainy$$
 
-​    ![](https://latex.codecogs.com/gif.latex?\phi_1(S)=Sunny)
+​    $$\phi_1(S)=Sunny$$
 
 2. 计算第二天下雨和第二天晴天去购物的概率值：
 
@@ -182,11 +182,11 @@
 
 4. 比较每一步中 $\bigtriangleup$ 的概率大小，选取**最大值**并找到对应的路径，依次类推就能找到最有可能的**隐藏状态路径**。 
 
-   第一天的概率最大值为  ![](https://latex.codecogs.com/gif.latex?\bigtriangleup_1S)，对应路径为Sunny，
+   第一天的概率最大值为  $$\bigtriangleup_1S$$，对应路径为Sunny，
 
-   第二天的概率最大值为  ![](https://latex.codecogs.com/gif.latex?\bigtriangleup_2S)，对应路径为Sunny，
+   第二天的概率最大值为  $$\bigtriangleup_2S$$，对应路径为Sunny，
 
-   第三天的概率最大值为  ![](https://latex.codecogs.com/gif.latex?\bigtriangleup_3R)，对应路径为Rainy。
+   第三天的概率最大值为  $$\bigtriangleup_3R$$，对应路径为Rainy。
 
 5. 合起来的路径就是Sunny->Sunny->Rainy，这就是我们所求。
 
@@ -206,7 +206,7 @@ wikipedia上是这样定义因子图的：将一个具有多变量的全局函�
 
 举个例子，现在有一个全局函数，其因式分解方程为：
 
-![](https://latex.codecogs.com/gif.latex?g(x_1,x_2,x_3,x_4,x_5)=f_A(x_1)f_B(x_2)f_C(x1,x2,x3)f_D(x_3,x_4)f_E(x_3,x_5))
+$$g(x_1,x_2,x_3,x_4,x_5)=f_A(x_1)f_B(x_2)f_C(x1,x2,x3)f_D(x_3,x_4)f_E(x_3,x_5)$$
 
 其中fA,fB,fC,fD,fE为各函数，表示变量之间的关系，可以是条件概率也可以是其他关系。其对应的因子图为：
 

@@ -1,17 +1,17 @@
 ## 目录
-- [1.什么是线性回归](https://github.com/NLP-LOVE/ML-NLP/tree/master/Machine%20Learning/Linear%20Regression#1什么是线性回归)
-- [2. 能够解决什么样的问题](https://github.com/NLP-LOVE/ML-NLP/tree/master/Machine%20Learning/Linear%20Regression#2-能够解决什么样的问题)
-- [3. 一般表达式是什么](https://github.com/NLP-LOVE/ML-NLP/tree/master/Machine%20Learning/Linear%20Regression#3-一般表达式是什么)
-- [4. 如何计算](https://github.com/NLP-LOVE/ML-NLP/tree/master/Machine%20Learning/Linear%20Regression#4-如何计算)
-- [5. 过拟合、欠拟合如何解决](https://github.com/NLP-LOVE/ML-NLP/tree/master/Machine%20Learning/Linear%20Regression#5-过拟合欠拟合如何解决)
-  - [5.1 什么是L2正则化(岭回归)](https://github.com/NLP-LOVE/ML-NLP/tree/master/Machine%20Learning/Linear%20Regression#51-什么是l2正则化岭回归)
-  - [5.2 什么场景下用L2正则化](https://github.com/NLP-LOVE/ML-NLP/tree/master/Machine%20Learning/Linear%20Regression#52-什么场景下用l2正则化)
-  - [5.3 什么是L1正则化(Lasso回归)](https://github.com/NLP-LOVE/ML-NLP/tree/master/Machine%20Learning/Linear%20Regression#53-什么是l1正则化lasso回归)
-  - [5.4 什么场景下使用L1正则化](https://github.com/NLP-LOVE/ML-NLP/tree/master/Machine%20Learning/Linear%20Regression#54-什么场景下使用l1正则化)
-  - [5.5 什么是ElasticNet回归](https://github.com/NLP-LOVE/ML-NLP/tree/master/Machine%20Learning/Linear%20Regression#55-什么是elasticnet回归)
-  - [5.6 ElasticNet回归的使用场景](https://github.com/NLP-LOVE/ML-NLP/tree/master/Machine%20Learning/Linear%20Regression#56--elasticnet回归的使用场景)
-- [6. 线性回归要求因变量服从正态分布？](https://github.com/NLP-LOVE/ML-NLP/tree/master/Machine%20Learning/Linear%20Regression#6-线性回归要求因变量服从正态分布)
-- [7. 代码实现](https://github.com/NLP-LOVE/ML-NLP/tree/master/Machine%20Learning/Linear%20Regression/demo)
+- [1.什么是线性回归](https://github.com/NLP-LOVE/ML-NLP/tree/master/Machine%20Learning/Liner%20Regression#1什么是线性回归)
+- [2. 能够解决什么样的问题](https://github.com/NLP-LOVE/ML-NLP/tree/master/Machine%20Learning/Liner%20Regression#2-能够解决什么样的问题)
+- [3. 一般表达式是什么](https://github.com/NLP-LOVE/ML-NLP/tree/master/Machine%20Learning/Liner%20Regression#3-一般表达式是什么)
+- [4. 如何计算](https://github.com/NLP-LOVE/ML-NLP/tree/master/Machine%20Learning/Liner%20Regression#4-如何计算)
+- [5. 过拟合、欠拟合如何解决](https://github.com/NLP-LOVE/ML-NLP/tree/master/Machine%20Learning/Liner%20Regression#5-过拟合欠拟合如何解决)
+  - [5.1 什么是L2正则化(岭回归)](https://github.com/NLP-LOVE/ML-NLP/tree/master/Machine%20Learning/Liner%20Regression#51-什么是l2正则化岭回归)
+  - [5.2 什么场景下用L2正则化](https://github.com/NLP-LOVE/ML-NLP/tree/master/Machine%20Learning/Liner%20Regression#52-什么场景下用l2正则化)
+  - [5.3 什么是L1正则化(Lasso回归)](https://github.com/NLP-LOVE/ML-NLP/tree/master/Machine%20Learning/Liner%20Regression#53-什么是l1正则化lasso回归)
+  - [5.4 什么场景下使用L1正则化](https://github.com/NLP-LOVE/ML-NLP/tree/master/Machine%20Learning/Liner%20Regression#54-什么场景下使用l1正则化)
+  - [5.5 什么是ElasticNet回归](https://github.com/NLP-LOVE/ML-NLP/tree/master/Machine%20Learning/Liner%20Regression#55-什么是elasticnet回归)
+  - [5.6 ElasticNet回归的使用场景](https://github.com/NLP-LOVE/ML-NLP/tree/master/Machine%20Learning/Liner%20Regression#56--elasticnet回归的使用场景)
+- [6. 线性回归要求因变量服从正态分布？](https://github.com/NLP-LOVE/ML-NLP/tree/master/Machine%20Learning/Liner%20Regression#6-线性回归要求因变量服从正态分布)
+- [7. 代码实现](https://github.com/NLP-LOVE/ML-NLP/tree/master/Machine%20Learning/Liner%20Regression/demo)
 
 ## 1.什么是线性回归
 
@@ -25,7 +25,7 @@
 
 ## 3. 一般表达式是什么
 
-![](https://latex.codecogs.com/gif.latex?Y=wx+b)
+$$Y=wx+b$$
 
 w叫做x的系数，b叫做偏置项。
 
@@ -33,7 +33,7 @@ w叫做x的系数，b叫做偏置项。
 
 ### 4.1 Loss Function--MSE
 
-![](https://latex.codecogs.com/gif.latex?J=\frac{1}{2m}\sum^{i=1}_{m}(y^{'}-y)^2)
+$$J=\frac{1}{2m}\sum^{i=1}_{m}(y^{'}-y)^2$$
 
 利用**梯度下降法**找到最小值点，也就是最小误差，最后把 w 和 b 给求出来。
 
@@ -49,15 +49,15 @@ w叫做x的系数，b叫做偏置项。
 
 方程：
 
-![](https://latex.codecogs.com/gif.latex?J=J_0+\lambda\sum_{w}w^2)
+$$J=J_0+\lambda\sum_{w}w^2$$
 
-![](https://latex.codecogs.com/gif.latex?J_0)表示上面的 loss function ，在loss function的基础上加入w参数的平方和乘以 ![](https://latex.codecogs.com/gif.latex?\lambda) ，假设：
+$$J_0$$表示上面的 loss function ，在loss function的基础上加入w参数的平方和乘以 $$\lambda$$ ，假设：
 
-![](https://latex.codecogs.com/gif.latex?L=\lambda({w_1}^2+{w_2}^2))
+$$L=\lambda({w_1}^2+{w_2}^2)$$
 
 回忆以前学过的单位元的方程：
 
-![](https://latex.codecogs.com/gif.latex?x^2+y^2=1)
+$$x^2+y^2=1$$
 
 正和L2正则化项一样，此时我们的任务变成在L约束下求出J取最小值的解。求解J0的过程可以画出等值线。同时L2正则化的函数L也可以在w1w2的二维平面上画出来。如下图：
 
@@ -73,11 +73,11 @@ L表示为图中的黑色圆形，随着梯度下降法的不断逼近，与圆�
 
 L1正则化与L2正则化的区别在于惩罚项的不同：
 
-![](https://latex.codecogs.com/gif.latex?J=J_0+\lambda(|w_1|+|w_2|))
+$$J=J_0+\lambda(|w_1|+|w_2|)$$
 
 求解J0的过程可以画出等值线。同时L1正则化的函数也可以在w1w2的二维平面上画出来。如下图：
 
-![image](https://ws2.sinaimg.cn/large/00630Defgy1g4nse7rf9xj308u089gme.jpg)
+![image](L1.jpg)
 
 惩罚项表示为图中的黑色棱形，随着梯度下降法的不断逼近，与棱形第一次产生交点，而这个交点很容易出现在坐标轴上。**这就说明了L1正则化容易得到稀疏矩阵。**
 
@@ -89,7 +89,7 @@ L1正则化与L2正则化的区别在于惩罚项的不同：
 
 **ElasticNet综合了L1正则化项和L2正则化项**，以下是它的公式：
 
-![](https://latex.codecogs.com/gif.latex?min(\frac{1}{2m}[\sum_{i=1}^{m}({y_i}^{'}-y_i)^2+\lambda\sum_{j=1}^{n}\theta_j^2]+\lambda\sum_{j=1}^{n}|\theta|))
+$$min(\frac{1}{2m}[\sum_{i=1}^{m}({y_i}^{'}-y_i)^2+\lambda\sum_{j=1}^{n}\theta_j^2]+\lambda\sum_{j=1}^{n}|\theta|)$$
 
 ### 5.6  ElasticNet回归的使用场景
 

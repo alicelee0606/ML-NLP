@@ -84,7 +84,7 @@ TF-IDF（term frequency–inverse document frequency）是一种用于信息检�
 
 分母之所以加1，是为了避免分母为0。
 
-那么，![](https://latex.codecogs.com/gif.latex?TF-IDF=TF*IDF)，从这个公式可以看出，当w在文档中出现的次数增大时，而TF-IDF的值是减小的，所以也就体现了以上所说的了。
+那么，$$TF-IDF=TF*IDF$$，从这个公式可以看出，当w在文档中出现的次数增大时，而TF-IDF的值是减小的，所以也就体现了以上所说的了。
 
 **缺点：**还是没有把词与词之间的关系顺序表达出来。
 

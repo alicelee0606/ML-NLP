@@ -19,17 +19,17 @@
 
 GRU它引⼊了**重置⻔（reset gate）和更新⻔（update gate）**的概念，从而修改了循环神经⽹络中隐藏状态的计算⽅式。 
 
-门控循环单元中的重置⻔和更新⻔的输⼊均为当前时间步输⼊ ![](https://latex.codecogs.com/gif.latex?X_t)与上⼀时间步隐藏状态![](https://latex.codecogs.com/gif.latex?H_{t-1})，输出由激活函数为sigmoid函数的全连接层计算得到。 如下图所示：
+门控循环单元中的重置⻔和更新⻔的输⼊均为当前时间步输⼊ $$X_t$$与上⼀时间步隐藏状态$$H_{t-1}$$，输出由激活函数为sigmoid函数的全连接层计算得到。 如下图所示：
 
 ![](https://gitee.com/kkweishe/images/raw/master/ML/2019-8-16_13-36-14.png)
 
-具体来说，假设隐藏单元个数为 h，给定时间步 t 的小批量输⼊ ![](https://latex.codecogs.com/gif.latex?X_t\in_{}\mathbb{R}^{n*d})（样本数为n，输⼊个数为d）和上⼀时间步隐藏状态 ![](https://latex.codecogs.com/gif.latex?H_{t-1}\in_{}\mathbb{R}^{n*h})。重置⻔ ![](https://latex.codecogs.com/gif.latex?H_t\in_{}\mathbb{R}^{n*h})和更新⻔ ![](https://latex.codecogs.com/gif.latex?Z_t\in_{}\mathbb{R}^{n*h})的计算如下：
+具体来说，假设隐藏单元个数为 h，给定时间步 t 的小批量输⼊ $$X_t\in_{}\mathbb{R}^{n*d}$$（样本数为n，输⼊个数为d）和上⼀时间步隐藏状态 $$H_{t-1}\in_{}\mathbb{R}^{n*h}$$。重置⻔ $$H_t\in_{}\mathbb{R}^{n*h}$$和更新⻔ $$Z_t\in_{}\mathbb{R}^{n*h}$$的计算如下：
 
-![](https://latex.codecogs.com/gif.latex?R_t=\sigma(X_tW_{xr}+H_{t-1}W_{hr}+b_r))
+$$R_t=\sigma(X_tW_{xr}+H_{t-1}W_{hr}+b_r)$$
 
-![](https://latex.codecogs.com/gif.latex?Z_t=\sigma(X_tW_{xz}+H_{t-1}W_{hz}+b_z))
+$$Z_t=\sigma(X_tW_{xz}+H_{t-1}W_{hz}+b_z)$$
 
-sigmoid函数可以将元素的值变换到0和1之间。因此，重置⻔ ![](https://latex.codecogs.com/gif.latex?R_t)和更新⻔ ![](https://latex.codecogs.com/gif.latex?Z_t)中每个元素的值域都是[0*,* 1]。
+sigmoid函数可以将元素的值变换到0和1之间。因此，重置⻔ $$R_t$$和更新⻔ $$Z_t$$中每个元素的值域都是[0*,* 1]。
 
 ### 2.2 候选隐藏状态
 
@@ -37,19 +37,19 @@ sigmoid函数可以将元素的值变换到0和1之间。因此，重置⻔ ![](
 
  ![](https://gitee.com/kkweishe/images/raw/master/ML/2019-8-16_13-49-52.png)
 
-具体来说，时间步 t 的候选隐藏状态 ![](https://latex.codecogs.com/gif.latex?\tilde{H}\in_{}\mathbb{R}^{n*h})的计算为：
+具体来说，时间步 t 的候选隐藏状态 $$\tilde{H}\in_{}\mathbb{R}^{n*h}$$的计算为：
 
-![](https://latex.codecogs.com/gif.latex?\tilde{H}_t=tanh(X_tW_{xh}+(R_t⊙H_{t-1})W_{hh}+b_h))
+$$\tilde{H}_t=tanh(X_tW_{xh}+(R_t.H_{t-1})W_{hh}+b_h)$$
 
 从上⾯这个公式可以看出，重置⻔控制了上⼀时间步的隐藏状态如何流⼊当前时间步的候选隐藏状态。而上⼀时间步的隐藏状态可能包含了时间序列截⾄上⼀时间步的全部历史信息。因此，重置⻔可以⽤来丢弃与预测⽆关的历史信息。
 
 ### 2.3 隐藏状态
 
-最后，时间步*t*的隐藏状态 ![](https://latex.codecogs.com/gif.latex?H_t\in_{}\mathbb{R}^{n*h})的计算使⽤当前时间步的更新⻔ ![](https://latex.codecogs.com/gif.latex?Z_t)来对上⼀时间步的隐藏状态 ![](https://latex.codecogs.com/gif.latex?H_{t-1})和当前时间步的候选隐藏状态 ![](https://latex.codecogs.com/gif.latex?\tilde{H}_t)做组合：
+最后，时间步*t*的隐藏状态 $$H_t\in_{}\mathbb{R}^{n*h}$$的计算使⽤当前时间步的更新⻔ $$Z_t$$来对上⼀时间步的隐藏状态 $$H_{t-1}$$和当前时间步的候选隐藏状态 $$\tilde{H}_t$$做组合：
 
  ![](https://gitee.com/kkweishe/images/raw/master/ML/2019-8-16_13-58-58.png)
 
-值得注意的是，**更新⻔可以控制隐藏状态应该如何被包含当前时间步信息的候选隐藏状态所更新，**如上图所⽰。假设更新⻔在时间步![](https://gitee.com/kkweishe/images/raw/master/ML/2019-8-16_15-26-24.png)之间⼀直近似1。那么，在时间步![](https://gitee.com/kkweishe/images/raw/master/ML/2019-8-16_15-27-55.png)间的输⼊信息⼏乎没有流⼊时间步 t 的隐藏状态 ![](https://latex.codecogs.com/gif.latex?H_t)实际上，这可以看作是较早时刻的隐藏状态 ![](https://latex.codecogs.com/gif.latex?H_{t^{′}-1})直通过时间保存并传递⾄当前时间步 t。这个设计可以应对循环神经⽹络中的梯度衰减问题，并更好地捕捉时间序列中时间步距离较⼤的依赖关系。 
+值得注意的是，**更新⻔可以控制隐藏状态应该如何被包含当前时间步信息的候选隐藏状态所更新，**如上图所⽰。假设更新⻔在时间步![](https://gitee.com/kkweishe/images/raw/master/ML/2019-8-16_15-26-24.png)之间⼀直近似1。那么，在时间步![](https://gitee.com/kkweishe/images/raw/master/ML/2019-8-16_15-27-55.png)间的输⼊信息⼏乎没有流⼊时间步 t 的隐藏状态 $$H_t$$实际上，这可以看作是较早时刻的隐藏状态 $$H_{t^{'}-1}$$直通过时间保存并传递⾄当前时间步 t。这个设计可以应对循环神经⽹络中的梯度衰减问题，并更好地捕捉时间序列中时间步距离较⼤的依赖关系。 
 
 我们对⻔控循环单元的设计稍作总结：
 

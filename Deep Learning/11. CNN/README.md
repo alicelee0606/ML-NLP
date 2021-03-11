@@ -61,7 +61,7 @@
 
 滤波器filter是什么呢！请看下图。图中左边部分是原始输入数据，图中中间部分是滤波器filter，图中右边是输出的新的二维数据。
 
-![image](https://ws3.sinaimg.cn/large/00630Defgy1g2djuqln1xj30i80dy104.jpg)
+
 
 不同的滤波器filter会得到不同的输出数据，比如颜色深浅、轮廓。**相当于提取图像的不同特征，模型就能够学习到多种特征。**用不同的滤波器filter，提取想要的关于图像的特定信息：颜色深浅或轮廓。如下图所示。
 
@@ -116,7 +116,7 @@
 
 方式有：**Max pooling、average pooling**
 
-![image](https://ws1.sinaimg.cn/large/00630Defgy1g2doejs89ej30ez0dhdj1.jpg)
+
 
 **Max pooling**
 
@@ -174,7 +174,7 @@
 
 ## 3. 图像相关任务
 
-![image](https://ws1.sinaimg.cn/large/00630Defly1g2lmm3f2e5j30wj0clwtx.jpg)
+
 
 ### 3.1 图像识别与定位
 
@@ -192,7 +192,7 @@
 
    - **Evaluation metric**：交并准则(IOU) > 0.5   图中阴影部分所占面积
 
-     ![image](https://ws1.sinaimg.cn/large/00630Defly1g2lmuahlsoj30df08rweb.jpg)
+     
 
 #### 3.1.1 思路1：识别+定位过程
 
@@ -360,7 +360,7 @@ SSD: Single Shot MultiBox Detector。上面分析了YOLO存在的问题，使用
 
 识别图上pixel的类别，用全卷积网络。
 
-![image](https://ws3.sinaimg.cn/large/00630Defly1g2lo1v1001j30nq0j4wu9.jpg)
+
 
 ## 4. 代码实现CNN
 
